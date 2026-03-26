@@ -231,7 +231,7 @@ class SdsApiManager(Construct):
             handler="SDSCode.api_lambdas.spice_metakernel_api.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_12,
             timeout=cdk.Duration.minutes(1),
-            memory_size=5000,
+            memory_size=3000,
             allow_public_subnet=True,
             vpc=vpc,
             security_groups=[rds_security_group],

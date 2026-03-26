@@ -289,13 +289,37 @@ class IalirtProcessing(Construct):
         # This auto-scaling group is used to manage the
         # number of instances in the ECS cluster. If an instance
         # becomes unhealthy, the auto-scaling group will replace it.
-        auto_scaling_group = autoscaling.AutoScalingGroup(
+        instance_role = iam.Role(
             self,
-            "AutoScalingGroup",
+            "AsgInstanceRole",
+            assumed_by=iam.ServicePrincipal("ec2.amazonaws.com"),
+            managed_policies=[
+                iam.ManagedPolicy.from_aws_managed_policy_name(
+                    "AmazonSSMManagedInstanceCore"
+                ),
+                iam.ManagedPolicy.from_aws_managed_policy_name(
+                    "AmazonEventBridgeFullAccess"
+                ),
+            ],
+        )
+
+        launch_template = ec2.LaunchTemplate(
+            self,
+            "AsgLaunchTemplate",
             instance_type=ec2.InstanceType.of(
                 ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.LARGE
             ),
             machine_image=ecs.EcsOptimizedImage.amazon_linux2023(),
+            security_group=self.ecs_security_group,
+            associate_public_ip_address=True,
+            role=instance_role,
+            user_data=ec2.UserData.for_linux(),
+        )
+
+        auto_scaling_group = autoscaling.AutoScalingGroup(
+            self,
+            "AutoScalingGroup",
+            launch_template=launch_template,
             vpc=self.vpc,
             desired_capacity=1,
             min_capacity=1,
@@ -303,26 +327,11 @@ class IalirtProcessing(Construct):
             vpc_subnets=ec2.SubnetSelection(
                 subnet_type=ec2.SubnetType.PUBLIC,
             ),
-            associate_public_ip_address=True,
-            security_group=self.ecs_security_group,
         )
 
         auto_scaling_group.apply_removal_policy(RemovalPolicy.DESTROY)
         eip_lambda = self.create_lambda_function()
         self.create_autoscaling_event_rule(eip_lambda, auto_scaling_group)
-
-        # Attach the AmazonSSMManagedInstanceCore policy for SSM access
-        auto_scaling_group.role.add_managed_policy(
-            iam.ManagedPolicy.from_aws_managed_policy_name(
-                "AmazonSSMManagedInstanceCore"
-            )
-        )
-        # Add EventBridgeFullAccess policy for EventBridge access
-        auto_scaling_group.role.add_managed_policy(
-            iam.ManagedPolicy.from_aws_managed_policy_name(
-                "AmazonEventBridgeFullAccess"
-            )
-        )
 
         autoscaling.LifecycleHook(
             self,
