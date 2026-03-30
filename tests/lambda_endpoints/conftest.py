@@ -150,7 +150,12 @@ DB_URL = os.getenv("TEST_DATABASE_URL", "sqlite:///:memory:")
 def session():
     """Create a test postgres database engine."""
     with patch.object(db, "Session") as mock_session:
-        engine = create_engine(DB_URL)
+        engine_kwargs = (
+            {"connect_args": {"options": "-c timezone=UTC"}}
+            if POSTGRES_AVAILABLE
+            else {}
+        )
+        engine = create_engine(DB_URL, **engine_kwargs)
 
         # Create the tables and session
         Base.metadata.create_all(engine)

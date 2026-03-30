@@ -1754,6 +1754,7 @@ def test_duplicate_job(session, first_status, second_status):
                 descriptor="de",
                 start_date=datetime(2010, 1, 1),
                 version="v001",
+                repointing=42,
             )
         )
     session.commit()
@@ -1766,6 +1767,7 @@ def test_duplicate_job(session, first_status, second_status):
         descriptor="de",
         start_date=datetime(2010, 1, 1),
         version="v001",
+        repointing=42,
     )
     session.add(record)
     session.commit()
@@ -1778,6 +1780,7 @@ def test_duplicate_job(session, first_status, second_status):
         descriptor="de",
         start_date=datetime(2010, 1, 1),
         version="v001",
+        repointing=42,
     )
     session.add(duplicate)
     with pytest.raises(IntegrityError):
@@ -1796,6 +1799,7 @@ def test_duplicate_job(session, first_status, second_status):
         descriptor="de",
         start_date=datetime(2010, 1, 1),
         version="v001",
+        repointing=42,
     )
     session.add(record)
     session.commit()
