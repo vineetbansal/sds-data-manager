@@ -305,6 +305,7 @@ def try_to_submit_job(
     version: str,
     serialized_dependencies: str,
     repoint: Optional[int] = None,
+    client=None,
 ):
     """Try to submit a batch job with the given job information.
 
@@ -325,6 +326,8 @@ def try_to_submit_job(
         The repointing number for the job, if applicable. Default is None. Should
         be just an integer, no "repoint" prefix.
     """
+    client = client or BATCH_CLIENT
+
     instrument = job_info["data_source"]
     data_level = job_info["data_type"]
     descriptor = job_info["descriptor"]
@@ -346,7 +349,9 @@ def try_to_submit_job(
         repointing=repoint,  # since we can have different repointings on the same day
     )
     dependency_file_path = dependency_file.construct_path()
-    response = upload_dependency_file(dependency_file_path, serialized_dependencies)
+    response = upload_dependency_file(
+        dependency_file_path, serialized_dependencies, client=client
+    )
     # If response is None, then the upload failed and we should skip submitting the job.
     if not response:
         return
@@ -405,7 +410,7 @@ def try_to_submit_job(
     step = "-l3" if data_level >= "l3" else ""
     job_definition = f"ProcessingJob-{instrument}{step}"
     job_queue = "ProcessingJobQueue"
-    BATCH_CLIENT.submit_job(
+    client.submit_job(
         jobName=job_name,
         jobQueue=job_queue,
         jobDefinition=job_definition,
@@ -425,6 +430,7 @@ def submit_all_jobs(
     repoint: Optional[int] = None,
     calculate_crids=False,
     filter_dependencies=True,
+    client=None,
 ):
     """Submit all jobs for the given job and upstream dependencies.
 
@@ -585,6 +591,7 @@ def submit_all_jobs(
             job_version,
             serialized_deps,
             repoint=job_repointing,
+            client=client,
         )
 
 
@@ -753,7 +760,7 @@ def determine_date_range(session, file_obj):
 
 # TODO: Refactor function to have fewer branches. For now, just ignore ruff.
 # ruff: noqa: PLR0912
-def s3_processing_event(session, events):
+def s3_processing_event(session, events, client=None):
     """Process SQS events that were triggered by S3 file arrivals.
 
     Parameters
@@ -765,6 +772,9 @@ def s3_processing_event(session, events):
     """
     # Since the SQS events can be batched together, we need to loop through
     # each event. In this loop, "event" represents one file landing.
+
+    sqs_client = client or SQS_CLIENT
+    batch_client = client or BATCH_CLIENT
 
     # Check for GLOWS l3e files. They might come in large groupings from the sqs because
     # GLOWS l3 processing might produce ~30 files at once. We only want one to trigger
@@ -905,12 +915,13 @@ def s3_processing_event(session, events):
                     repoint,
                     calculate_crids,
                     filter_dependencies,
+                    client=batch_client,
                 )
 
         if sqs_queue_url:
             # When the record from the sqs event has been processed, it can safely be
             # deleted from the queue.
-            SQS_CLIENT.delete_message(
+            sqs_client.delete_message(
                 QueueUrl=sqs_queue_url,
                 ReceiptHandle=event["receiptHandle"],
             )
@@ -1003,7 +1014,9 @@ def bulk_reprocessing_event(session, events):
             )
 
 
-def upload_dependency_file(dependency_file_path: Path, serialized_dependencies: str):
+def upload_dependency_file(
+    dependency_file_path: Path, serialized_dependencies: str, client=None
+):
     """Upload a JSON file containing a job's dependencies to S3.
 
     Parameters
@@ -1012,7 +1025,15 @@ def upload_dependency_file(dependency_file_path: Path, serialized_dependencies: 
         The dependency JSON file to upload.
     serialized_dependencies : str
         The serialized upstream dependencies to upload.
+    local : bool, optional
+        If True, write the file to the local filesystem instead of uploading to S3.
+        The full path is determined by ``generate_imap_file_path``. Default is False.
     """
+    if client:
+        return client.upload_dependency_file(
+            dependency_file_path, serialized_dependencies
+        )
+
     # Check if the file already exists
     if os.path.isfile(dependency_file_path):
         raise KeyError(
@@ -1274,7 +1295,7 @@ def cadence_processing_event(
         )
 
 
-def lambda_handler(events: dict, context):
+def lambda_handler(events: dict, context, client=None):
     """Lambda handler.
 
     This lambda is triggered by different events.
@@ -1331,4 +1352,4 @@ def lambda_handler(events: dict, context):
             cadence_processing_event(session, events)
         else:
             # handle s3 event from the SQS queue
-            s3_processing_event(session, events)
+            s3_processing_event(session, events, client=client)
