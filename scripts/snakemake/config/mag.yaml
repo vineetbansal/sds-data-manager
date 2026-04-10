@@ -1,0 +1,211 @@
+levels:
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: burst-magi
+- input:
+    level: ancillary
+    desc: l1b-calibration
+  output:
+    level: l1b
+    desc: burst-magi
+- input:
+    level: l1a
+    desc: burst-magi
+  output:
+    level: l1b
+    desc: burst-magi
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: burst-mago
+- input:
+    level: ancillary
+    desc: l1b-calibration
+  output:
+    level: l1b
+    desc: burst-mago
+- input:
+    level: l1a
+    desc: burst-mago
+  output:
+    level: l1b
+    desc: burst-mago
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: norm-magi
+- input:
+    level: ancillary
+    desc: l1b-calibration
+  output:
+    level: l1b
+    desc: norm-magi
+- input:
+    level: l1a
+    desc: norm-magi
+  output:
+    level: l1b
+    desc: norm-magi
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: norm-mago
+- input:
+    level: l1a
+    desc: norm-mago
+  output:
+    level: l1b
+    desc: norm-mago
+- input:
+    level: ancillary
+    desc: l1b-calibration
+  output:
+    level: l1b
+    desc: norm-mago
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: norm-magi
+- input:
+    level: l1b
+    desc: norm-magi
+  output:
+    level: l1c
+    desc: norm-magi
+- input:
+    level: l1b
+    desc: burst-magi
+  output:
+    level: l1c
+    desc: norm-magi
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: norm-mago
+- input:
+    level: l1b
+    desc: norm-mago
+  output:
+    level: l1c
+    desc: norm-mago
+- input:
+    level: l1b
+    desc: burst-mago
+  output:
+    level: l1c
+    desc: norm-mago
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1d
+    desc: norm-srf
+- input:
+    level: l1b
+    desc: burst-mago
+  output:
+    level: l1d
+    desc: norm-srf
+- input:
+    level: l1b
+    desc: burst-magi
+  output:
+    level: l1d
+    desc: norm-srf
+- input:
+    level: l1c
+    desc: norm-mago
+  output:
+    level: l1d
+    desc: norm-srf
+- input:
+    level: l1c
+    desc: norm-magi
+  output:
+    level: l1d
+    desc: norm-srf
+- input:
+    level: ancillary
+    desc: l1d-calibration
+  output:
+    level: l1d
+    desc: norm-srf
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1d
+    desc: norm-srf
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: burst-srf
+- input:
+    level: l1b
+    desc: burst-mago
+  output:
+    level: l2
+    desc: burst-srf
+- input:
+    level: ancillary
+    desc: l2-calibration
+  output:
+    level: l2
+    desc: burst-srf
+- input:
+    level: ancillary
+    desc: l2-burst-offsets
+  output:
+    level: l2
+    desc: burst-srf
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: norm-srf
+- input:
+    level: l1c
+    desc: norm-mago
+  output:
+    level: l2
+    desc: norm-srf
+- input:
+    level: ancillary
+    desc: l2-calibration
+  output:
+    level: l2
+    desc: norm-srf
+- input:
+    level: ancillary
+    desc: l2-norm-offsets
+  output:
+    level: l2
+    desc: norm-srf

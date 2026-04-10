@@ -30,60 +30,58 @@ logger = logging.getLogger(__name__)
 
 def init_db():
     engine = database.get_engine()
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
 
     records = [
-        SPICEFiles(
-            file_name="naif0012.tls",
-            file_path=str(generate_imap_file_path("naif0012.tls").construct_path()),
-            ingestion_date=datetime.strptime(
-                "2025-04-30 18:24:00+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-            file_root="naif.tls",
-            kernel_type="leapseconds",
-            min_date_j2000=0,
-            max_date_j2000=4575787269.183866,
-            file_intervals_j2000=[[0, 4575787269.183866]],
-            min_date_datetime=datetime.strptime(
-                "2000-01-01 12:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-            max_date_datetime=datetime.strptime(
-                "2145-01-01 00:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-            file_intervals_datetime="[[2000-01-01T12:00:00, 2145-01-01T00:00:00]]",
-            min_date_sclk="1/0000000000:00000",
-            max_date_sclk="1/4285909749:39444",
-            file_intervals_sclk="[[1/0000000000:00000, 1/4285909749:39444]]",
-            sclk_kernel=str(generate_imap_file_path("imap_sclk_0145.tsc").construct_path()),
-            lsk_kernel=str(generate_imap_file_path("naif0012.tls").construct_path()),
-            version=12,
-        ),
-        SPICEFiles(
-            file_name="imap_sclk_0145.tsc",
-            file_path=str(generate_imap_file_path("imap_sclk_0145.tsc").construct_path()),
-            ingestion_date=datetime.strptime(
-                "2025-04-30 18:24:01+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-            file_root="imap_sclk_0000.tsc",
-            kernel_type="spacecraft_clock",
-            min_date_j2000=315576066.1839245,
-            max_date_j2000=4575787269.183866,
-            file_intervals_j2000=[[315576066.1839245, 4575787269.183866]],
-            min_date_datetime=datetime.strptime(
-                "2010-01-01 00:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-            max_date_datetime=datetime.strptime(
-                "2145-01-01 00:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-            file_intervals_datetime="[[2010-01-01T00:00:00, 2145-01-01T00:00:00]]",
-            min_date_sclk="1/0000000000:00000",
-            max_date_sclk="1/4285909749:39444",
-            file_intervals_sclk="[[1/0000000000:00000, 1/4285909749:39444]]",
-            sclk_kernel=str(generate_imap_file_path("imap_sclk_0145.tsc").construct_path()),
-            lsk_kernel=str(generate_imap_file_path("naif0012.tls").construct_path()),
-            version=145,
-        ),
+        # SPICEFiles(
+        #     file_name="naif0012.tls",
+        #     file_path=str(generate_imap_file_path("naif0012.tls").construct_path()),
+        #     ingestion_date=datetime.strptime(
+        #         "2025-04-30 18:24:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        #     file_root="naif.tls",
+        #     kernel_type="leapseconds",
+        #     min_date_j2000=0,
+        #     max_date_j2000=4575787269.183866,
+        #     file_intervals_j2000=[[0, 4575787269.183866]],
+        #     min_date_datetime=datetime.strptime(
+        #         "2000-01-01 12:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        #     max_date_datetime=datetime.strptime(
+        #         "2145-01-01 00:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        #     file_intervals_datetime="[[2000-01-01T12:00:00, 2145-01-01T00:00:00]]",
+        #     min_date_sclk="1/0000000000:00000",
+        #     max_date_sclk="1/4285909749:39444",
+        #     file_intervals_sclk="[[1/0000000000:00000, 1/4285909749:39444]]",
+        #     sclk_kernel=str(generate_imap_file_path("imap_sclk_0145.tsc").construct_path()),
+        #     lsk_kernel=str(generate_imap_file_path("naif0012.tls").construct_path()),
+        #     version=12,
+        # ),
+        # SPICEFiles(
+        #     file_name="imap_sclk_0145.tsc",
+        #     file_path=str(generate_imap_file_path("imap_sclk_0145.tsc").construct_path()),
+        #     ingestion_date=datetime.strptime(
+        #         "2025-04-30 18:24:01+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        #     file_root="imap_sclk_0000.tsc",
+        #     kernel_type="spacecraft_clock",
+        #     min_date_j2000=315576066.1839245,
+        #     max_date_j2000=4575787269.183866,
+        #     file_intervals_j2000=[[315576066.1839245, 4575787269.183866]],
+        #     min_date_datetime=datetime.strptime(
+        #         "2010-01-01 00:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        #     max_date_datetime=datetime.strptime(
+        #         "2145-01-01 00:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        #     file_intervals_datetime="[[2010-01-01T00:00:00, 2145-01-01T00:00:00]]",
+        #     min_date_sclk="1/0000000000:00000",
+        #     max_date_sclk="1/4285909749:39444",
+        #     file_intervals_sclk="[[1/0000000000:00000, 1/4285909749:39444]]",
+        #     sclk_kernel=str(generate_imap_file_path("imap_sclk_0145.tsc").construct_path()),
+        #     lsk_kernel=str(generate_imap_file_path("naif0012.tls").construct_path()),
+        #     version=145,
+        # ),
         AncillaryFiles(
             file_path=str(
                 generate_imap_file_path(

@@ -1,0 +1,1777 @@
+levels:
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: l1a
+    desc: 45sensor-de
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: l1b
+    desc: 45sensor-hk
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: spice
+    desc: best
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: 45sensor-goodtimes
+- input:
+    level: l1b
+    desc: 45sensor-de
+  output:
+    level: l1b
+    desc: 45sensor-goodtimes
+- input:
+    level: l1b
+    desc: 45sensor-hk
+  output:
+    level: l1b
+    desc: 45sensor-goodtimes
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: 45sensor-goodtimes
+- input:
+    level: l1a
+    desc: 45sensor-diagfee
+  output:
+    level: l1b
+    desc: 45sensor-goodtimes
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l1b
+    desc: 45sensor-goodtimes
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: spice
+    desc: best
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: l1a
+    desc: 90sensor-de
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: l1b
+    desc: 90sensor-hk
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: 90sensor-goodtimes
+- input:
+    level: l1b
+    desc: 90sensor-de
+  output:
+    level: l1b
+    desc: 90sensor-goodtimes
+- input:
+    level: l1b
+    desc: 90sensor-hk
+  output:
+    level: l1b
+    desc: 90sensor-goodtimes
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: 90sensor-goodtimes
+- input:
+    level: l1a
+    desc: 90sensor-diagfee
+  output:
+    level: l1b
+    desc: 90sensor-goodtimes
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l1b
+    desc: 90sensor-goodtimes
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1b
+    desc: hk
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: hk
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-pset
+- input:
+    level: l1b
+    desc: 45sensor-de
+  output:
+    level: l1c
+    desc: 45sensor-pset
+- input:
+    level: spice
+    desc: best
+  output:
+    level: l1c
+    desc: 45sensor-pset
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-pset
+- input:
+    level: l1b
+    desc: 45sensor-goodtimes
+  output:
+    level: l1c
+    desc: 45sensor-pset
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-pset
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l1c
+    desc: 45sensor-pset
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-pset
+- input:
+    level: spice
+    desc: best
+  output:
+    level: l1c
+    desc: 90sensor-pset
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-pset
+- input:
+    level: l1b
+    desc: 90sensor-de
+  output:
+    level: l1c
+    desc: 90sensor-pset
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-pset
+- input:
+    level: l1b
+    desc: 90sensor-goodtimes
+  output:
+    level: l1c
+    desc: 90sensor-pset
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l1c
+    desc: 90sensor-pset
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-energies
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-cal-prod
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-pset
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 45sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h45-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-anti-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-hf-nsp-ram-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-anti-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-energies
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-cal-prod
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-pset
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: 90sensor-esa-eta-fit-factors
+  output:
+    level: l2
+    desc: h90-ena-h-sf-nsp-ram-hae-6deg-6mo
+- input:
+    level: l3
+    desc: h45-ena-h-hf-sp-anti-hae-4deg-1yr
+  output:
+    level: l3
+    desc: h45-spx-h-hf-sp-anti-hae-4deg-1yr
+- input:
+    level: l3
+    desc: h45-ena-h-hf-sp-anti-hae-6deg-1yr
+  output:
+    level: l3
+    desc: h45-spx-h-hf-sp-anti-hae-6deg-1yr
+- input:
+    level: l3
+    desc: h45-ena-h-hf-sp-full-hae-4deg-6mo
+  output:
+    level: l3
+    desc: h45-spx-h-hf-sp-full-hae-4deg-6mo
+- input:
+    level: l3
+    desc: h45-ena-h-hf-sp-full-hae-6deg-6mo
+  output:
+    level: l3
+    desc: h45-spx-h-hf-sp-full-hae-6deg-6mo
+- input:
+    level: l3
+    desc: h45-ena-h-hf-sp-ram-hae-4deg-1yr
+  output:
+    level: l3
+    desc: h45-spx-h-hf-sp-ram-hae-4deg-1yr
+- input:
+    level: l3
+    desc: h45-ena-h-hf-sp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: h45-spx-h-hf-sp-ram-hae-6deg-1yr
+- input:
+    level: l3
+    desc: h90-ena-h-hf-sp-anti-hae-4deg-1yr
+  output:
+    level: l3
+    desc: h90-spx-h-hf-sp-anti-hae-4deg-1yr
+- input:
+    level: l3
+    desc: h90-ena-h-hf-sp-anti-hae-6deg-1yr
+  output:
+    level: l3
+    desc: h90-spx-h-hf-sp-anti-hae-6deg-1yr
+- input:
+    level: l3
+    desc: h90-ena-h-hf-sp-full-hae-4deg-6mo
+  output:
+    level: l3
+    desc: h90-spx-h-hf-sp-full-hae-4deg-6mo
+- input:
+    level: l3
+    desc: h90-ena-h-hf-sp-full-hae-6deg-6mo
+  output:
+    level: l3
+    desc: h90-spx-h-hf-sp-full-hae-6deg-6mo
+- input:
+    level: l3
+    desc: h90-ena-h-hf-sp-ram-hae-4deg-1yr
+  output:
+    level: l3
+    desc: h90-spx-h-hf-sp-ram-hae-4deg-1yr
+- input:
+    level: l3
+    desc: h90-ena-h-hf-sp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: h90-spx-h-hf-sp-ram-hae-6deg-1yr
+- input:
+    level: l3
+    desc: hic-ena-h-hf-sp-full-hae-4deg-1yr
+  output:
+    level: l3
+    desc: hic-spx-h-hf-sp-full-hae-4deg-1yr
+- input:
+    level: l3
+    desc: hic-ena-h-hf-sp-full-hae-6deg-1yr
+  output:
+    level: l3
+    desc: hic-spx-h-hf-sp-full-hae-6deg-1yr

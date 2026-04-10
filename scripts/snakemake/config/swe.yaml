@@ -1,0 +1,91 @@
+levels:
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: sci
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: sci
+- input:
+    level: l1a
+    desc: sci
+  output:
+    level: l1b
+    desc: sci
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: sci
+- input:
+    level: ancillary
+    desc: l1b-in-flight-cal
+  output:
+    level: l1b
+    desc: sci
+- input:
+    level: ancillary
+    desc: esa-lut
+  output:
+    level: l1b
+    desc: sci
+- input:
+    level: ancillary
+    desc: eu-conversion
+  output:
+    level: l1b
+    desc: sci
+- input:
+    level: l1b
+    desc: sci
+  output:
+    level: l2
+    desc: sci
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l2
+    desc: sci
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l3
+    desc: sci
+- input:
+    level: l1b
+    desc: sci
+  output:
+    level: l3
+    desc: sci
+- input:
+    level: l2
+    desc: sci
+  output:
+    level: l3
+    desc: sci
+- input:
+    level: ancillary
+    desc: config
+  output:
+    level: l3
+    desc: sci
+- input:
+    level: l3a
+    desc: proton-sw
+  output:
+    level: l3
+    desc: sci
+- input:
+    level: l1d
+    desc: norm-dsrf
+  output:
+    level: l3
+    desc: sci

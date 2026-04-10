@@ -1,0 +1,73 @@
+levels:
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: l1a
+    desc: msg
+  output:
+    level: l1b
+    desc: msg
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: sci-1week
+- input:
+    level: l1a
+    desc: sci-1week
+  output:
+    level: l1b
+    desc: sci-1week
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: sci-1week
+- input:
+    level: l1b
+    desc: sci-1week
+  output:
+    level: l2a
+    desc: sci-1week
+- input:
+    level: ancillary
+    desc: l2a-calibration-curve-yield-params
+  output:
+    level: l2a
+    desc: sci-1week
+- input:
+    level: ancillary
+    desc: l2a-calibration-curve-t-rise
+  output:
+    level: l2a
+    desc: sci-1week
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2b
+    desc: all-1mo
+- input:
+    level: l1b
+    desc: msg
+  output:
+    level: l2b
+    desc: all-1mo
+- input:
+    level: l2a
+    desc: sci-1week
+  output:
+    level: l2b
+    desc: all-1mo

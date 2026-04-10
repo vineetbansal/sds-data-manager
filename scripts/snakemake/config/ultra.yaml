@@ -1,0 +1,1501 @@
+levels:
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: l1b
+    desc: 45sensor-extendedspin
+  output:
+    level: l1b
+    desc: 45sensor-badtimes
+- input:
+    level: l1b
+    desc: 45sensor-goodtimes
+  output:
+    level: l1b
+    desc: 45sensor-badtimes
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: l1a
+    desc: 45sensor-de
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: l1a
+    desc: 45sensor-aux
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-logistic-interpolation
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-leftslit-lookup
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-rightslit-lookup
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-egynorm-lookup
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-imgparams-lookup
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-back-pos-lookup
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-tdc-norm-lookup
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-sensor-gf-blades
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-sensor-gf-noblades
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-yadjust-lookup
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-tofxeflat
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-tofxemedium
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-tofxesteep
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-tofxph
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-spbtphcorr
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-sptpphcorr
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-scattering-thresholds-per-energy
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-scattering-calibration-data
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: 45sensor-de
+- input:
+    level: l1b
+    desc: 45sensor-de
+  output:
+    level: l1b
+    desc: 45sensor-extendedspin
+- input:
+    level: l1a
+    desc: 45sensor-aux
+  output:
+    level: l1b
+    desc: 45sensor-extendedspin
+- input:
+    level: l1a
+    desc: 45sensor-params
+  output:
+    level: l1b
+    desc: 45sensor-extendedspin
+- input:
+    level: l1a
+    desc: 45sensor-rates
+  output:
+    level: l1b
+    desc: 45sensor-extendedspin
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: 45sensor-extendedspin
+- input:
+    level: l1b
+    desc: 45sensor-extendedspin
+  output:
+    level: l1b
+    desc: 45sensor-goodtimes
+- input:
+    level: l1b
+    desc: 90sensor-extendedspin
+  output:
+    level: l1b
+    desc: 90sensor-badtimes
+- input:
+    level: l1b
+    desc: 90sensor-goodtimes
+  output:
+    level: l1b
+    desc: 90sensor-badtimes
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-45sensor-logistic-interpolation
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-egynorm-lookup
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-sensor-gf-blades
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-sensor-gf-noblades
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-yadjust-lookup
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-tofxph
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-scattering-thresholds-per-energy
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-scattering-calibration-data
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: l1a
+    desc: 90sensor-de
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: l1a
+    desc: 90sensor-aux
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-leftslit-lookup
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-rightslit-lookup
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-imgparams-lookup
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-back-pos-lookup
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-tdc-norm-lookup
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-tofxeflat
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-tofxemedium
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-tofxesteep
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-spbtphcorr
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: ancillary
+    desc: l1b-90sensor-sptpphcorr
+  output:
+    level: l1b
+    desc: 90sensor-de
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: 90sensor-extendedspin
+- input:
+    level: l1b
+    desc: 90sensor-de
+  output:
+    level: l1b
+    desc: 90sensor-extendedspin
+- input:
+    level: l1a
+    desc: 90sensor-aux
+  output:
+    level: l1b
+    desc: 90sensor-extendedspin
+- input:
+    level: l1a
+    desc: 90sensor-params
+  output:
+    level: l1b
+    desc: 90sensor-extendedspin
+- input:
+    level: l1a
+    desc: 90sensor-rates
+  output:
+    level: l1b
+    desc: 90sensor-extendedspin
+- input:
+    level: l1b
+    desc: 90sensor-extendedspin
+  output:
+    level: l1b
+    desc: 90sensor-goodtimes
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: l1b
+    desc: 45sensor-de
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: l1a
+    desc: 45sensor-aux
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: l1a
+    desc: 45sensor-rates
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: l1b
+    desc: 45sensor-goodtimes
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-45sensor-logistic-interpolation
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-45sensor-imgparams-lookup
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-sensor-gf-blades
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-scattering-thresholds-per-energy
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-90sensor-scattering-calibration-data
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1c-45sensor-static-dead-times
+  output:
+    level: l1c
+    desc: 45sensor-heliopset
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: l1b
+    desc: 45sensor-de
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: l1a
+    desc: 45sensor-aux
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: l1a
+    desc: 45sensor-rates
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: l1b
+    desc: 45sensor-goodtimes
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-45sensor-logistic-interpolation
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-45sensor-imgparams-lookup
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-sensor-gf-blades
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-scattering-thresholds-per-energy
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-90sensor-scattering-calibration-data
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-45sensor-sc-pointing-theta
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-45sensor-sc-pointing-phi
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-45sensor-sc-pointing-index
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-45sensor-sc-pointing-bsf
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-45sensor-static-dead-times
+  output:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-45sensor-logistic-interpolation
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-sensor-gf-blades
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-scattering-thresholds-per-energy
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-90sensor-scattering-calibration-data
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: l1b
+    desc: 90sensor-de
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: l1a
+    desc: 90sensor-aux
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: l1a
+    desc: 90sensor-rates
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: l1b
+    desc: 90sensor-goodtimes
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1b-90sensor-imgparams-lookup
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: ancillary
+    desc: l1c-90sensor-static-dead-times
+  output:
+    level: l1c
+    desc: 90sensor-heliopset
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-45sensor-logistic-interpolation
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-sensor-gf-blades
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-scattering-thresholds-per-energy
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-90sensor-scattering-calibration-data
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: l1b
+    desc: 90sensor-de
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: l1a
+    desc: 90sensor-aux
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: l1a
+    desc: 90sensor-rates
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: l1b
+    desc: 90sensor-goodtimes
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1b-90sensor-imgparams-lookup
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-90sensor-sc-pointing-theta
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-90sensor-sc-pointing-phi
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-90sensor-sc-pointing-index
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-90sensor-sc-pointing-bsf
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: ancillary
+    desc: l1c-90sensor-static-dead-times
+  output:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-2deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-2deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-2deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-2deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-2deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-2deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-heliopset
+  output:
+    level: l2
+    desc: u45-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-2deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-2deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-2deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-2deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-2deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-2deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 45sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u45-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-2deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-2deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-2deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-2deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-2deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-2deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-4deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-6deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-heliopset
+  output:
+    level: l2
+    desc: u90-ena-h-hf-nsp-full-hae-6deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-2deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-2deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-2deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-2deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-2deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-2deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-4deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-4deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-4deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-4deg-6mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-6deg-3mo
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: l1c
+    desc: 90sensor-spacecraftpset
+  output:
+    level: l2
+    desc: u90-ena-h-sf-nsp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-2deg-1yr
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-2deg-1yr
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-2deg-1yr
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-2deg-3mo
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-2deg-3mo
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-2deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-2deg-6mo
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-2deg-6mo
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-2deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-4deg-1yr
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-4deg-1yr
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-4deg-3mo
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-4deg-3mo
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-4deg-6mo
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-4deg-6mo
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-6deg-1yr
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-6deg-1yr
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-6deg-3mo
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-6deg-3mo
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-6deg-6mo
+- input:
+    level: l3
+    desc: u45-ena-h-hf-sp-full-hae-6deg-6mo
+  output:
+    level: l3
+    desc: u45-spx-h-hf-sp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-2deg-1yr
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-2deg-1yr
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-2deg-1yr
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-2deg-3mo
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-2deg-3mo
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-2deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-2deg-6mo
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-2deg-6mo
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-2deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-4deg-1yr
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-4deg-1yr
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-4deg-3mo
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-4deg-3mo
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-4deg-6mo
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-4deg-6mo
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-6deg-1yr
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-6deg-1yr
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-6deg-3mo
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-6deg-3mo
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-6deg-6mo
+- input:
+    level: l3
+    desc: u90-ena-h-hf-sp-full-hae-6deg-6mo
+  output:
+    level: l3
+    desc: u90-spx-h-hf-sp-full-hae-6deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-2deg-1yr
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-2deg-1yr
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-2deg-1yr
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-2deg-3mo
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-2deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-2deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-2deg-6mo
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-2deg-6mo
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-2deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-4deg-1yr
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-4deg-1yr
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-4deg-1yr
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-4deg-3mo
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-4deg-3mo
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-4deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-4deg-6mo
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-4deg-6mo
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-4deg-6mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-6deg-1yr
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-6deg-1yr
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-6deg-3mo
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-6deg-3mo
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-6deg-3mo
+- input:
+    level: ancillary
+    desc: ulc-spx-energy-ranges
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-6deg-6mo
+- input:
+    level: l3
+    desc: ulc-ena-h-hf-sp-full-hae-6deg-6mo
+  output:
+    level: l3
+    desc: ulc-spx-h-hf-sp-full-hae-6deg-6mo

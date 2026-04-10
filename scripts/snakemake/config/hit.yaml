@@ -1,0 +1,241 @@
+levels:
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1b
+    desc: hk
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: hk
+- input:
+    level: l1a
+    desc: counts-sectored
+  output:
+    level: l1b
+    desc: sectored-rates
+- input:
+    level: l1a
+    desc: counts-standard
+  output:
+    level: l1b
+    desc: standard-rates
+- input:
+    level: l1a
+    desc: counts-standard
+  output:
+    level: l1b
+    desc: summed-rates
+- input:
+    level: l1b
+    desc: sectored-rates
+  output:
+    level: l2
+    desc: macropixel-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-macropixel-dt0-factors
+  output:
+    level: l2
+    desc: macropixel-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-macropixel-dt1-factors
+  output:
+    level: l2
+    desc: macropixel-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-macropixel-dt2-factors
+  output:
+    level: l2
+    desc: macropixel-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-macropixel-dt3-factors
+  output:
+    level: l2
+    desc: macropixel-intensity
+- input:
+    level: l1b
+    desc: standard-rates
+  output:
+    level: l2
+    desc: standard-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-standard-dt0-factors
+  output:
+    level: l2
+    desc: standard-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-standard-dt1-factors
+  output:
+    level: l2
+    desc: standard-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-standard-dt2-factors
+  output:
+    level: l2
+    desc: standard-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-standard-dt3-factors
+  output:
+    level: l2
+    desc: standard-intensity
+- input:
+    level: l1b
+    desc: summed-rates
+  output:
+    level: l2
+    desc: summed-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-summed-dt0-factors
+  output:
+    level: l2
+    desc: summed-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-summed-dt1-factors
+  output:
+    level: l2
+    desc: summed-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-summed-dt2-factors
+  output:
+    level: l2
+    desc: summed-intensity
+- input:
+    level: ancillary
+    desc: l1b-to-l2-summed-dt3-factors
+  output:
+    level: l2
+    desc: summed-intensity
+- input:
+    level: l1a
+    desc: direct-events
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-2A-cosine-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-3A-cosine-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-4A-cosine-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-2B-cosine-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-3B-cosine-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-4B-cosine-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: lo-gain-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: hi-gain-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-2A-charge-fit-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-3A-charge-fit-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-4A-charge-fit-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-2B-charge-fit-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-3B-charge-fit-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: range-4B-charge-fit-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: ancillary
+    desc: hit-event-type-lookup
+  output:
+    level: l3
+    desc: direct-events
+- input:
+    level: l2
+    desc: macropixel-intensity
+  output:
+    level: l3
+    desc: macropixel
+- input:
+    level: l1d
+    desc: norm-dsrf
+  output:
+    level: l3
+    desc: macropixel

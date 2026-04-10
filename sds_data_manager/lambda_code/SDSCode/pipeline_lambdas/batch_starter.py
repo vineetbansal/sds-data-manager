@@ -931,7 +931,7 @@ def s3_processing_event(session, events, client=None):
             )
 
 
-def bulk_reprocessing_event(session, events):
+def bulk_reprocessing_event(session, events, client=None):
     """Process bulk reprocessing event.
 
     Parameters
@@ -1011,6 +1011,7 @@ def bulk_reprocessing_event(session, events):
                 start_date,
                 end_date,
                 filter_dependencies=filter_dependencies,
+                client=client
             )
 
 
@@ -1163,6 +1164,7 @@ def cadence_processing_event(
     job: Optional[dict] = None,
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
+    client = None
 ):
     """Process events triggerd by EventBridge rules.
 
@@ -1292,6 +1294,7 @@ def cadence_processing_event(
             start_date,
             job_version,
             serialized_deps,
+            client=client
         )
 
 
@@ -1346,10 +1349,10 @@ def lambda_handler(events: dict, context, client=None):
     with db.Session() as session:
         if api_event and api_event.get("reprocessing"):
             # handle reprocessing event
-            bulk_reprocessing_event(session, api_event)
+            bulk_reprocessing_event(session, api_event, client=client)
         elif events.get("cadence"):
             # Handle a cadence event
-            cadence_processing_event(session, events)
+            cadence_processing_event(session, events, client=client)
         else:
             # handle s3 event from the SQS queue
             s3_processing_event(session, events, client=client)

@@ -1,0 +1,433 @@
+levels:
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: all-rates
+- input:
+    level: l1a
+    desc: spin
+  output:
+    level: l1b
+    desc: all-rates
+- input:
+    level: ancillary
+    desc: sweep-table
+  output:
+    level: l1b
+    desc: all-rates
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: all-rates
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: all-rates
+- input:
+    level: l1a
+    desc: histogram
+  output:
+    level: l1b
+    desc: all-rates
+- input:
+    level: ancillary
+    desc: esa-mode-lut
+  output:
+    level: l1b
+    desc: all-rates
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: badtimes
+- input:
+    level: l1b
+    desc: nhk
+  output:
+    level: l1b
+    desc: badtimes
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: badtimes
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: badtimes
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: de
+- input:
+    level: l1a
+    desc: de
+  output:
+    level: l1b
+    desc: de
+- input:
+    level: l1a
+    desc: spin
+  output:
+    level: l1b
+    desc: de
+- input:
+    level: l1b
+    desc: nhk
+  output:
+    level: l1b
+    desc: de
+- input:
+    level: ancillary
+    desc: bad-times
+  output:
+    level: l1b
+    desc: de
+- input:
+    level: ancillary
+    desc: sweep-table
+  output:
+    level: l1b
+    desc: de
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: de
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: de
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: derates
+- input:
+    level: l1b
+    desc: de
+  output:
+    level: l1b
+    desc: derates
+- input:
+    level: l1a
+    desc: spin
+  output:
+    level: l1b
+    desc: derates
+- input:
+    level: ancillary
+    desc: sweep-table
+  output:
+    level: l1b
+    desc: derates
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1b
+    desc: derates
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: derates
+- input:
+    level: ancillary
+    desc: esa-mode-lut
+  output:
+    level: l1b
+    desc: derates
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1b
+    desc: prostar
+- input:
+    level: l1a
+    desc: spin
+  output:
+    level: l1b
+    desc: prostar
+- input:
+    level: l1b
+    desc: nhk
+  output:
+    level: l1b
+    desc: prostar
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1b
+    desc: prostar
+- input:
+    level: l1a
+    desc: star
+  output:
+    level: l1b
+    desc: prostar
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1c
+    desc: pset
+- input:
+    level: l1b
+    desc: de
+  output:
+    level: l1c
+    desc: pset
+- input:
+    level: spin
+    desc: historical
+  output:
+    level: l1c
+    desc: pset
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1c
+    desc: pset
+- input:
+    level: ancillary
+    desc: good-times
+  output:
+    level: l1c
+    desc: pset
+- input:
+    level: ancillary
+    desc: hydrogen-background
+  output:
+    level: l1c
+    desc: pset
+- input:
+    level: ancillary
+    desc: oxygen-background
+  output:
+    level: l1c
+    desc: pset
+- input:
+    level: spice
+    desc: best
+  output:
+    level: l1c
+    desc: pset
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: l090-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: pset
+  output:
+    level: l2
+    desc: l090-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: esa-eta-fit-factors
+  output:
+    level: l2
+    desc: l090-ena-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: l090-ena-h-hk-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: pset
+  output:
+    level: l2
+    desc: l090-ena-h-hk-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: esa-eta-fit-factors
+  output:
+    level: l2
+    desc: l090-ena-h-hk-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: l090-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: pset
+  output:
+    level: l2
+    desc: l090-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: esa-eta-fit-factors
+  output:
+    level: l2
+    desc: l090-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: l090-ena-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: pset
+  output:
+    level: l2
+    desc: l090-ena-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: esa-eta-fit-factors
+  output:
+    level: l2
+    desc: l090-ena-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: l090-isn-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: pset
+  output:
+    level: l2
+    desc: l090-isn-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: esa-eta-fit-factors
+  output:
+    level: l2
+    desc: l090-isn-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: l090-isn-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: pset
+  output:
+    level: l2
+    desc: l090-isn-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: esa-eta-fit-factors
+  output:
+    level: l2
+    desc: l090-isn-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: ancillary
+    desc: esa-eta-fit-factors
+  output:
+    level: l2
+    desc: t090-ena-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: t090-isn-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: pset
+  output:
+    level: l2
+    desc: t090-isn-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l2
+    desc: t090-isn-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l1c
+    desc: pset
+  output:
+    level: l2
+    desc: t090-isn-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l2
+    desc: l090-enanbs-h-sf-nsp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: l090-isn-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l2
+    desc: l090-enanbs-o-sf-nsp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: l090-isn-o-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l2
+    desc: l090-ena-h-hf-nsp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: l090-spx-h-hf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l3
+    desc: l090-ena-h-hf-sp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: l090-spx-h-hf-sp-ram-hae-6deg-1yr
+- input:
+    level: l2
+    desc: l090-ena-h-sf-nsp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: l090-spx-h-sf-nsp-ram-hae-6deg-1yr
+- input:
+    level: l3
+    desc: l090-ena-h-sf-sp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: l090-spx-h-sf-sp-ram-hae-6deg-1yr
+- input:
+    level: l2
+    desc: l090-enanbs-h-hk-nsp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: l090-spxnbs-h-hk-nsp-ram-hae-6deg-1yr
+- input:
+    level: l2
+    desc: l090-enanbs-h-sf-nsp-ram-hae-6deg-1yr
+  output:
+    level: l3
+    desc: l090-spxnbs-h-sf-nsp-ram-hae-6deg-1yr

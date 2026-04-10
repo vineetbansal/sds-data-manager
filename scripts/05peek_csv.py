@@ -59,5 +59,3 @@ for _from_desc in from_desc:
     else:
         n_from_not_in_to.add(_from_desc)
 
-
-assert True

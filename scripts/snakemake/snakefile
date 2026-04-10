@@ -1,0 +1,120 @@
+import glob
+import os
+import re
+import yaml
+
+DATA_DIR = "/media/vineetb/delta/projects/imap/data/sds"
+
+MISSION = "imap"
+
+# INSTRUMENT_LEVELS[instrument] = list of ((in_level, in_desc), (out_level, out_desc))
+# Loaded from config/<instrument>.yaml
+INSTRUMENT_LEVELS = {}
+for _cfg_path in glob.glob(os.path.join(os.path.dirname(workflow.snakefile), "config", "*.yaml")):
+    _instrument = os.path.splitext(os.path.basename(_cfg_path))[0]
+    with open(_cfg_path) as _f:
+        _cfg = yaml.safe_load(_f)
+    INSTRUMENT_LEVELS[_instrument] = [
+        (
+            (_lvl["input"]["level"], _lvl["input"]["desc"]),
+            (_lvl["output"]["level"], _lvl["output"]["desc"]),
+        )
+        for _lvl in _cfg["levels"]
+    ]
+INSTRUMENTS = list(INSTRUMENT_LEVELS.keys())
+
+# Reverse lookup: (instrument, out_level, out_desc) -> (in_level, in_desc)
+INPUT_FOR_OUTPUT = {
+    (instrument, out_level, out_desc): (in_level, in_desc)
+    for instrument, pairings in INSTRUMENT_LEVELS.items()
+    for (in_level, in_desc), (out_level, out_desc) in pairings
+}
+
+# Forward chain: (instrument, in_level, in_desc) -> (out_level, out_desc)
+NEXT_LEVEL = {
+    (instrument, in_level, in_desc): (out_level, out_desc)
+    for instrument, pairings in INSTRUMENT_LEVELS.items()
+    for (in_level, in_desc), (out_level, out_desc) in pairings
+}
+
+# Levels produced by a processing step — their inputs are .cdf files, not .pkts
+OUTPUT_LEVELS = {
+    (instrument, out_level, out_desc)
+    for instrument, pairings in INSTRUMENT_LEVELS.items()
+    for (in_level, in_desc), (out_level, out_desc) in pairings
+}
+
+# Root inputs: seed levels sourced from raw .pkts files (not outputs of any step)
+ROOT_INPUTS = {
+    (instrument, in_level, in_desc)
+    for instrument, pairings in INSTRUMENT_LEVELS.items()
+    for (in_level, in_desc), _ in pairings
+    if (instrument, in_level, in_desc) not in OUTPUT_LEVELS
+}
+
+def _output_path(instrument, out_level, out_desc, date_str, version):
+    year, month = date_str[:4], date_str[4:6]
+    return DATA_DIR + f"/{MISSION}/{instrument}/{out_level}/{year}/{month}/{MISSION}_{instrument}_{out_level}_{out_desc}_{date_str}_{version}.cdf"
+
+def _input_path(wildcards):
+    in_level, in_desc = INPUT_FOR_OUTPUT[(wildcards.instrument, wildcards.out_level, wildcards.out_desc)]
+    ext = "cdf" if (wildcards.instrument, in_level, in_desc) in OUTPUT_LEVELS else "pkts"
+    return (
+        DATA_DIR + f"/{MISSION}/{wildcards.instrument}/{in_level}/{wildcards.year}/{wildcards.month}"
+        f"/{MISSION}_{wildcards.instrument}_{in_level}_{in_desc}"
+        f"_{wildcards.year}{wildcards.month}{wildcards.day}_{wildcards.version}.{ext}"
+    )
+
+DATE_FILTER = str(config["date"]) if "date" in config else None
+
+def _build_all_files(date_filter):
+    files = []
+    for instrument, in_level, in_desc in ROOT_INPUTS:
+        pattern = DATA_DIR + f"/{MISSION}/{instrument}/{in_level}/*/*/{MISSION}_{instrument}_{in_level}_{in_desc}_*_v???.pkts"
+        for pkts_file in glob.glob(pattern):
+            m = re.search(rf"{MISSION}_{instrument}_{in_level}_{in_desc}_(\d{{8}})_(v\d{{3}})\.pkts$", pkts_file)
+            if m:
+                date_str, version = m.group(1), m.group(2)
+                if date_filter is None or date_str == date_filter:
+                    cur_level, cur_desc = in_level, in_desc
+                    while (instrument, cur_level, cur_desc) in NEXT_LEVEL:
+                        next_level, next_desc = NEXT_LEVEL[(instrument, cur_level, cur_desc)]
+                        files.append(_output_path(instrument, next_level, next_desc, date_str, version))
+                        cur_level, cur_desc = next_level, next_desc
+    return files
+
+ALL_FILES = _build_all_files(DATE_FILTER)
+
+if not ALL_FILES:
+    date_msg = f" for date {DATE_FILTER}" if DATE_FILTER else ""
+    raise WorkflowError(f"No input .pkts files found{date_msg}.")
+
+
+# --------------- Snakemake Rules --------------- #
+wildcard_constraints:
+    year=r"\d{4}",
+    month=r"\d{2}",
+    day=r"\d{2}",
+    instrument="|".join(INSTRUMENTS),
+    version=r"v\d{3}",
+    out_level="|".join(set(out[0] for pairings in INSTRUMENT_LEVELS.values() for _, out in pairings)),
+    out_desc="|".join(set(out[1] for pairings in INSTRUMENT_LEVELS.values() for _, out in pairings))
+
+rule all:
+    input:
+        ALL_FILES
+
+# Individual instrument rules for convenience
+rule swapi:
+    input:
+        [f for f in ALL_FILES if "/swapi/" in f]
+
+rule imap_processing:
+    input:
+        _input_path
+    output:
+        DATA_DIR + f"/{MISSION}/{{instrument}}/{{out_level}}/{{year}}/{{month}}/{MISSION}_{{instrument}}_{{out_level}}_{{out_desc}}_{{year}}{{month}}{{day}}_{{version}}.cdf"
+    shell:
+        "imap_cli --instrument {wildcards.instrument} --data-level {wildcards.out_level} --descriptor {wildcards.out_desc} --start-date {wildcards.year}{wildcards.month}{wildcards.day} --version {wildcards.version}"
+
+# --------------- Snakemake Rules --------------- #

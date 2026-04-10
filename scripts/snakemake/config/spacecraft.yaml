@@ -1,0 +1,25 @@
+levels:
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: pointing-attitude
+- input:
+    level: repoint
+    desc: historical
+  output:
+    level: l1a
+    desc: pointing-attitude
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: quaternions
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: quaternions

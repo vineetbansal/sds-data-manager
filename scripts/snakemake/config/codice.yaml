@@ -1,0 +1,475 @@
+levels:
+- input:
+    level: l0
+    desc: raw
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: ancillary
+    desc: l1a-sci-lut
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: spice
+    desc: historical
+  output:
+    level: l1a
+    desc: all
+- input:
+    level: l1a
+    desc: hi-counters-aggregated
+  output:
+    level: l1b
+    desc: hi-counters-aggregated
+- input:
+    level: l1a
+    desc: hi-counters-singles
+  output:
+    level: l1b
+    desc: hi-counters-singles
+- input:
+    level: l1a
+    desc: hi-omni
+  output:
+    level: l1b
+    desc: hi-omni
+- input:
+    level: l1a
+    desc: hi-priority
+  output:
+    level: l1b
+    desc: hi-priority
+- input:
+    level: l1a
+    desc: hi-sectored
+  output:
+    level: l1b
+    desc: hi-sectored
+- input:
+    level: l1a
+    desc: lo-counters-aggregated
+  output:
+    level: l1b
+    desc: lo-counters-aggregated
+- input:
+    level: l1a
+    desc: lo-counters-singles
+  output:
+    level: l1b
+    desc: lo-counters-singles
+- input:
+    level: l1a
+    desc: lo-nsw-angular
+  output:
+    level: l1b
+    desc: lo-nsw-angular
+- input:
+    level: l1a
+    desc: lo-nsw-priority
+  output:
+    level: l1b
+    desc: lo-nsw-priority
+- input:
+    level: l1a
+    desc: lo-nsw-species
+  output:
+    level: l1b
+    desc: lo-nsw-species
+- input:
+    level: l1a
+    desc: lo-sw-angular
+  output:
+    level: l1b
+    desc: lo-sw-angular
+- input:
+    level: l1a
+    desc: lo-sw-priority
+  output:
+    level: l1b
+    desc: lo-sw-priority
+- input:
+    level: l1a
+    desc: lo-sw-species
+  output:
+    level: l1b
+    desc: lo-sw-species
+- input:
+    level: l1a
+    desc: hi-direct-events
+  output:
+    level: l2
+    desc: hi-direct-events
+- input:
+    level: ancillary
+    desc: l2-hi-energy-table
+  output:
+    level: l2
+    desc: hi-direct-events
+- input:
+    level: ancillary
+    desc: l2-hi-tof-table
+  output:
+    level: l2
+    desc: hi-direct-events
+- input:
+    level: l1b
+    desc: hi-omni
+  output:
+    level: l2
+    desc: hi-omni
+- input:
+    level: ancillary
+    desc: l2-hi-omni-efficiency
+  output:
+    level: l2
+    desc: hi-omni
+- input:
+    level: l1b
+    desc: hi-sectored
+  output:
+    level: l2
+    desc: hi-sectored
+- input:
+    level: ancillary
+    desc: l2-hi-sectored-efficiency
+  output:
+    level: l2
+    desc: hi-sectored
+- input:
+    level: l1a
+    desc: lo-direct-events
+  output:
+    level: l2
+    desc: lo-direct-events
+- input:
+    level: ancillary
+    desc: l2-lo-onboard-energy-table
+  output:
+    level: l2
+    desc: lo-direct-events
+- input:
+    level: ancillary
+    desc: l2-lo-onboard-energy-bins
+  output:
+    level: l2
+    desc: lo-direct-events
+- input:
+    level: ancillary
+    desc: l2-lo-onboard-mpq-cal
+  output:
+    level: l2
+    desc: lo-direct-events
+- input:
+    level: l1b
+    desc: lo-nsw-angular
+  output:
+    level: l2
+    desc: lo-nsw-angular
+- input:
+    level: ancillary
+    desc: l2-lo-gfactor
+  output:
+    level: l2
+    desc: lo-nsw-angular
+- input:
+    level: ancillary
+    desc: l2-lo-efficiency
+  output:
+    level: l2
+    desc: lo-nsw-angular
+- input:
+    level: l1b
+    desc: lo-nsw-species
+  output:
+    level: l2
+    desc: lo-nsw-species
+- input:
+    level: ancillary
+    desc: l2-lo-gfactor
+  output:
+    level: l2
+    desc: lo-nsw-species
+- input:
+    level: ancillary
+    desc: l2-lo-efficiency
+  output:
+    level: l2
+    desc: lo-nsw-species
+- input:
+    level: l1b
+    desc: lo-sw-angular
+  output:
+    level: l2
+    desc: lo-sw-angular
+- input:
+    level: ancillary
+    desc: l2-lo-gfactor
+  output:
+    level: l2
+    desc: lo-sw-angular
+- input:
+    level: ancillary
+    desc: l2-lo-efficiency
+  output:
+    level: l2
+    desc: lo-sw-angular
+- input:
+    level: l1b
+    desc: lo-sw-species
+  output:
+    level: l2
+    desc: lo-sw-species
+- input:
+    level: ancillary
+    desc: l2-lo-gfactor
+  output:
+    level: l2
+    desc: lo-sw-species
+- input:
+    level: ancillary
+    desc: l2-lo-efficiency
+  output:
+    level: l2
+    desc: lo-sw-species
+- input:
+    level: l2
+    desc: hi-direct-events
+  output:
+    level: l3a
+    desc: hi-direct-events
+- input:
+    level: l1a
+    desc: lo-sw-priority
+  output:
+    level: l3a
+    desc: lo-direct-events
+- input:
+    level: l1a
+    desc: lo-nsw-priority
+  output:
+    level: l3a
+    desc: lo-direct-events
+- input:
+    level: l2
+    desc: lo-direct-events
+  output:
+    level: l3a
+    desc: lo-direct-events
+- input:
+    level: ancillary
+    desc: lo-energy-per-charge
+  output:
+    level: l3a
+    desc: lo-direct-events
+- input:
+    level: ancillary
+    desc: mass-coefficient-lookup
+  output:
+    level: l3a
+    desc: lo-direct-events
+- input:
+    level: l1a
+    desc: lo-sw-priority
+  output:
+    level: l3a
+    desc: lo-heplus-3d-distribution
+- input:
+    level: l1a
+    desc: lo-nsw-priority
+  output:
+    level: l3a
+    desc: lo-heplus-3d-distribution
+- input:
+    level: ancillary
+    desc: l2-lo-gfactor
+  output:
+    level: l3a
+    desc: lo-heplus-3d-distribution
+- input:
+    level: ancillary
+    desc: l2-lo-efficiency
+  output:
+    level: l3a
+    desc: lo-heplus-3d-distribution
+- input:
+    level: l3a
+    desc: lo-direct-events
+  output:
+    level: l3a
+    desc: lo-heplus-3d-distribution
+- input:
+    level: ancillary
+    desc: lo-energy-per-charge
+  output:
+    level: l3a
+    desc: lo-heplus-3d-distribution
+- input:
+    level: ancillary
+    desc: lo-mass-species-bin-lookup
+  output:
+    level: l3a
+    desc: lo-heplus-3d-distribution
+- input:
+    level: l1a
+    desc: lo-sw-priority
+  output:
+    level: l3a
+    desc: lo-heplus2-3d-distribution
+- input:
+    level: l1a
+    desc: lo-nsw-priority
+  output:
+    level: l3a
+    desc: lo-heplus2-3d-distribution
+- input:
+    level: ancillary
+    desc: l2-lo-gfactor
+  output:
+    level: l3a
+    desc: lo-heplus2-3d-distribution
+- input:
+    level: ancillary
+    desc: l2-lo-efficiency
+  output:
+    level: l3a
+    desc: lo-heplus2-3d-distribution
+- input:
+    level: l3a
+    desc: lo-direct-events
+  output:
+    level: l3a
+    desc: lo-heplus2-3d-distribution
+- input:
+    level: ancillary
+    desc: lo-energy-per-charge
+  output:
+    level: l3a
+    desc: lo-heplus2-3d-distribution
+- input:
+    level: ancillary
+    desc: lo-mass-species-bin-lookup
+  output:
+    level: l3a
+    desc: lo-heplus2-3d-distribution
+- input:
+    level: l1a
+    desc: lo-sw-priority
+  output:
+    level: l3a
+    desc: lo-hplus-3d-distribution
+- input:
+    level: l1a
+    desc: lo-nsw-priority
+  output:
+    level: l3a
+    desc: lo-hplus-3d-distribution
+- input:
+    level: ancillary
+    desc: l2-lo-gfactor
+  output:
+    level: l3a
+    desc: lo-hplus-3d-distribution
+- input:
+    level: ancillary
+    desc: l2-lo-efficiency
+  output:
+    level: l3a
+    desc: lo-hplus-3d-distribution
+- input:
+    level: l3a
+    desc: lo-direct-events
+  output:
+    level: l3a
+    desc: lo-hplus-3d-distribution
+- input:
+    level: ancillary
+    desc: lo-energy-per-charge
+  output:
+    level: l3a
+    desc: lo-hplus-3d-distribution
+- input:
+    level: ancillary
+    desc: lo-mass-species-bin-lookup
+  output:
+    level: l3a
+    desc: lo-hplus-3d-distribution
+- input:
+    level: l1a
+    desc: lo-sw-priority
+  output:
+    level: l3a
+    desc: lo-oplus6-3d-distribution
+- input:
+    level: l1a
+    desc: lo-nsw-priority
+  output:
+    level: l3a
+    desc: lo-oplus6-3d-distribution
+- input:
+    level: ancillary
+    desc: l2-lo-gfactor
+  output:
+    level: l3a
+    desc: lo-oplus6-3d-distribution
+- input:
+    level: ancillary
+    desc: l2-lo-efficiency
+  output:
+    level: l3a
+    desc: lo-oplus6-3d-distribution
+- input:
+    level: l3a
+    desc: lo-direct-events
+  output:
+    level: l3a
+    desc: lo-oplus6-3d-distribution
+- input:
+    level: ancillary
+    desc: lo-energy-per-charge
+  output:
+    level: l3a
+    desc: lo-oplus6-3d-distribution
+- input:
+    level: ancillary
+    desc: lo-mass-species-bin-lookup
+  output:
+    level: l3a
+    desc: lo-oplus6-3d-distribution
+- input:
+    level: l2
+    desc: lo-sw-species
+  output:
+    level: l3a
+    desc: lo-partial-densities
+- input:
+    level: ancillary
+    desc: mass-per-charge
+  output:
+    level: l3a
+    desc: lo-partial-densities
+- input:
+    level: l3a
+    desc: lo-partial-densities
+  output:
+    level: l3a
+    desc: lo-sw-charge-state-distributions
+- input:
+    level: l3a
+    desc: lo-partial-densities
+  output:
+    level: l3a
+    desc: lo-sw-ratios
+- input:
+    level: l2
+    desc: hi-sectored
+  output:
+    level: l3b
+    desc: hi-pitch-angle
+- input:
+    level: l1d
+    desc: norm-dsrf
+  output:
+    level: l3b
+    desc: hi-pitch-angle
