@@ -26,14 +26,18 @@ from sqlalchemy.exc import IntegrityError
 from ..api_lambdas import upload_api
 from ..database import database as db
 from ..database import models
-from . import REPOINT_DEPENDENT_INSTRUMENTS, VALID_CADENCE_STRS, dependency
-from .dependency import DependencyConfig
+from . import (
+    FIRST_MAP_START_DATE,
+    REPOINT_DEPENDENT_INSTRUMENTS,
+    VALID_CADENCE_STRS,
+    dependency,
+)
 
 # Logger setup
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-DEPENDENCY_CONFIG = DependencyConfig()
+DEPENDENCY_CONFIG = dependency.DependencyConfig()
 # Create a batch client
 BATCH_CLIENT = boto3.client("batch", region_name="us-west-2")
 # Define the retry strategy for batch jobs
@@ -49,6 +53,32 @@ BATCH_JOB_RETRY_STRATEGY = {
 }
 # Create an sqs client
 SQS_CLIENT = boto3.client("sqs", region_name="us-west-2")
+
+
+def add_buffer_to_idex_start_date(start_date: str, buffer_days: int = 12) -> str:
+    """Add a buffer to the start date for idex l1b sci-1week jobs.
+
+    For idex l1b sci-1week jobs, we want to use a date range of 12 days ending
+    at the start date in the filename. Although they are described as weekly files,
+    they can actually contain over a week of data, so we want to
+    add a buffer to make sure we are getting all the spice coverage we need.
+
+    Parameters
+    ----------
+    start_date : str
+        The start date in the format 'YYYYMMDD'.
+    buffer_days : int
+        The number of days to subtract from the start date to create the buffer.
+        Default is 12.
+    """
+    logger.info(
+        f"Adding {buffer_days}-day buffer to start date {start_date} for idex"
+        f" l1b sci-1week job."
+    )
+    return (
+        datetime.datetime.strptime(start_date, "%Y%m%d")
+        - datetime.timedelta(days=buffer_days)
+    ).strftime("%Y%m%d")
 
 
 def spacecraft_pointing_attitude_job(job_node: dict) -> bool:
@@ -506,9 +536,21 @@ def submit_all_jobs(
         # Get the repointing number from the science file object
         job_repointing = science_file.repointing
 
-        # If there is only one file to process, then we can use upstream dependencies
-        # that have already been queried.
-        if filter_dependencies:
+        # For some jobs, we need to filter the upstream dependencies to only include
+        # the files valid for the start date of the primary science file.
+        # Handle special case for idex l1b sci-1week jobs
+        idex_l1b_job = (
+            job_node["data_source"] == "idex"
+            and job_node["descriptor"] == "sci-1week"
+            and job_node["data_type"] == "l1b"
+        )
+        if filter_dependencies or idex_l1b_job:
+            query_start_date = (
+                add_buffer_to_idex_start_date(start_date)
+                if idex_l1b_job
+                else start_date
+            )
+
             # Query for upstream files only needed for this job with using the
             # start date of the primary science file.
             upstream_deps_for_job = dependency.get_jobs(
@@ -517,7 +559,7 @@ def submit_all_jobs(
                 descriptor=job_node["descriptor"],
                 dependency_type="UPSTREAM",
                 relationship="ALL",
-                start_date=start_date,
+                start_date=query_start_date,
                 end_date=end_date,
                 repoint=job_repointing,
                 calculate_crids=False,
@@ -527,7 +569,7 @@ def submit_all_jobs(
             if not upstream_deps_for_job:
                 logger.info(
                     f"Skipping job submission for {job_node} with start_date: "
-                    f"{start_date} because of a missing upstream dependency."
+                    f"{query_start_date} because of a missing upstream dependency."
                 )
                 continue
         else:
@@ -699,20 +741,6 @@ def determine_date_range(session, file_obj):
             start_date, end_date = calculate_pointing_date_range(
                 session, file_obj.repointing
             )
-        elif (
-            file_obj.instrument == "idex"
-            and "sci-1week" in file_obj.descriptor
-            and file_obj.data_level == "l1a"
-        ):
-            # For idex l1b sci-1week jobs, we want to use a date range of 12 days ending
-            # at the start date in the filename. Although the file is named as
-            # 1week, it can actually contain over a week of data, so we want to
-            # add a buffer to make sure we are getting all the spice coverage we need.
-            end_date = file_obj.start_date
-            start_date = (
-                datetime.datetime.strptime(end_date, "%Y%m%d")
-                - datetime.timedelta(days=12)
-            ).strftime("%Y%m%d")
         else:
             start_date = end_date = file_obj.start_date
     elif isinstance(file_obj, AncillaryFilePath):
@@ -728,6 +756,8 @@ def determine_date_range(session, file_obj):
     return start_date, end_date
 
 
+# TODO: Refactor function to have fewer branches. For now, just ignore ruff.
+# ruff: noqa: PLR0912
 def s3_processing_event(session, events):
     """Process SQS events that were triggered by S3 file arrivals.
 
@@ -833,15 +863,54 @@ def s3_processing_event(session, events):
             repoint = (
                 file_obj.repointing if isinstance(file_obj, ScienceFilePath) else None
             )
-            submit_all_jobs(
-                session,
-                job,
-                trigger_start_time,
-                trigger_end_time,
-                repoint,
-                calculate_crids,
-                filter_dependencies,
+
+            # Check if trigger file is Hi L1B DE
+            trigger_is_hi_l1b_de = (
+                isinstance(file_obj, ScienceFilePath)
+                and file_obj.instrument == "hi"
+                and file_obj.data_level == "l1b"
+                and file_obj.descriptor.endswith("-de")
             )
+
+            # Special handling: When Hi L1B DE triggers Hi Goodtimes,
+            # expand to multiple target repoints
+            if (
+                trigger_is_hi_l1b_de
+                and repoint is not None
+                and job["data_source"] == "hi"
+                and job["data_type"] == "l1b"
+                and "goodtimes" in job["descriptor"]
+            ):
+                # Get target repoints in range [T-N+1, T+N-1]
+                # Normal dependency checking will handle missing L1B DE files
+                target_repoints = dependency.get_hi_goodtimes_target_repoints(
+                    trigger_repoint=repoint,
+                )
+
+                for target_repoint in target_repoints:
+                    logger.info(
+                        f"Submitting Hi Goodtimes job for repoint {target_repoint} "
+                        f"(triggered by repoint {repoint} file)"
+                    )
+                    submit_all_jobs(
+                        session,
+                        job,
+                        trigger_start_time,
+                        trigger_end_time,
+                        target_repoint,
+                        calculate_crids,
+                        filter_dependencies,
+                    )
+            else:
+                submit_all_jobs(
+                    session,
+                    job,
+                    trigger_start_time,
+                    trigger_end_time,
+                    repoint,
+                    calculate_crids,
+                    filter_dependencies,
+                )
 
         if sqs_queue_url:
             # When the record from the sqs event has been processed, it can safely be
@@ -904,7 +973,7 @@ def bulk_reprocessing_event(session, events):
         # If data_level is not provided, we need to reprocess all levels.
         # Get the jobs that kick of each pipeline, to trigger processing
         # for all levels.
-        potential_jobs = DependencyConfig().kickoff_pipeline_jobs()
+        potential_jobs = dependency.DependencyConfig().kickoff_pipeline_jobs()
         # filter the jobs by instrument and descriptor if provided
         potential_jobs = [
             job
@@ -1049,10 +1118,10 @@ def cadence_reprocessing_event(session, job, start_date, end_date):
         # jobs. For example, if there are no jobs for ultra,l2,"...4deg-3mo",
         # we still want to attempt to reprocess ultra,l2,"...6deg-3mo" maps.
         if not processed_start_dates:
-            logger.info(
-                f"No previously processed jobs found for: {job_node}, skipping."
-            )
-            continue
+            # TODO: this is a temporary solution to be able to reprocess
+            #   3 month map jobs if there were no map jobs previously processed.
+            #   We should eventually remove this patch and put in a permanent solution.
+            processed_start_dates = [FIRST_MAP_START_DATE]
         logger.info(
             f"Handling cadence reprocessing. Found {len(processed_start_dates)} files "
             f"to reprocess for job: {job_node}."
@@ -1131,14 +1200,14 @@ def cadence_processing_event(
         data_level = job_node["data_type"]
         descriptor = job_node["descriptor"]
         if instrument == "idex" and data_level == "l2b":
-            # IDEX l2b jobs are dependent on idex l1b evt housekeeping files. The job
+            # IDEX l2b jobs are dependent on idex l1b msg housekeeping files. The job
             # should be offset by 1 month to allow for all the event message
             # packets to be processed for the corresponding l2a files (This should only
             # be done for first version products). L2b jobs also
-            # depend on l1b evt housekeeping files that might be before the cadence job
-            # start date. To account for this, we will query for all the l1b evt files
+            # depend on l1b msg housekeeping files that might be before the cadence job
+            # start date. To account for this, we will query for all the l1b msg files
             # including those two weeks before the cadence job start date. This should
-            # ensure that all the l1b evt files are available for the l2b job.
+            # ensure that all the l1b msg files are available for the l2b job.
             if not reprocessing:
                 offset_1month = datetime.timedelta(days=CadenceDays.ONE_MONTH)
                 start_date = (
@@ -1153,7 +1222,7 @@ def cadence_processing_event(
                 else start_date
             )
             # Subtract two weeks from the start date to get all the necessary hk files.
-            l1b_evt_start_date = (start_date - datetime.timedelta(weeks=2)).strftime(
+            l1b_msg_start_date = (start_date - datetime.timedelta(weeks=2)).strftime(
                 "%Y%m%d"
             )
             start_date = start_date.strftime("%Y%m%d")
@@ -1163,14 +1232,14 @@ def cadence_processing_event(
                 descriptor=descriptor,
                 dependency_type="UPSTREAM",
                 relationship="ALL",
-                start_date=l1b_evt_start_date,
+                start_date=l1b_msg_start_date,
                 end_date=end_date,
             )
             if not upstream_extended_idex_deps:
                 continue
-            # Extract only the processing input for the idex l2b evt files
+            # Extract only the processing input for the idex l2b msg files
             additional_input = upstream_extended_idex_deps.get_processing_inputs(
-                source="idex", data_type="l1b", descriptor="evt"
+                source="idex", data_type="l1b", descriptor="msg"
             )
         else:
             additional_input = None

@@ -109,16 +109,16 @@ leapseconds, spice, historical, glows, l1a, all, HARD_NO_TRIGGER, DOWNSTREAM
 spacecraft_clock, spice, historical, glows, l1a, all, HARD_NO_TRIGGER, DOWNSTREAM
 
 glows, l1a, de, glows, l1b, de, HARD, DOWNSTREAM
-glows, ancillary, conversion-table-for-anc-data, glows, l1b, de, HARD, DOWNSTREAM
+glows, ancillary, l1b-conversion-table-for-anc-data, glows, l1b, de, HARD, DOWNSTREAM
 
 glows, l1a, hist, glows, l1b, hist, HARD, DOWNSTREAM
 spin, spin, historical, glows, l1b, hist, HARD, DOWNSTREAM
-glows, ancillary, exclusions-by-instr-team, glows, l1b, hist, HARD, DOWNSTREAM
-glows, ancillary, map-of-excluded-regions, glows, l1b, hist, HARD, DOWNSTREAM
-glows, ancillary, map-of-uv-sources, glows, l1b, hist, HARD, DOWNSTREAM
+glows, ancillary, l1b-exclusions-by-instr-team, glows, l1b, hist, HARD, DOWNSTREAM
+glows, ancillary, l1b-map-of-excluded-regions, glows, l1b, hist, HARD, DOWNSTREAM
+glows, ancillary, l1b-map-of-uv-sources, glows, l1b, hist, HARD, DOWNSTREAM
 glows, ancillary, pipeline-settings, glows, l1b, hist, HARD, DOWNSTREAM
-glows, ancillary, suspected-transients, glows, l1b, hist, HARD, DOWNSTREAM
-glows, ancillary, conversion-table-for-anc-data, glows, l1b, hist, HARD, DOWNSTREAM
+glows, ancillary, l1b-suspected-transients, glows, l1b, hist, HARD, DOWNSTREAM
+glows, ancillary, l1b-conversion-table-for-anc-data, glows, l1b, hist, HARD, DOWNSTREAM
 imap_frames, spice, historical, glows, l1b, hist, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, glows, l1b, hist, HARD_NO_TRIGGER, DOWNSTREAM
 attitude_history, spice, historical, glows, l1b, hist, HARD, DOWNSTREAM
@@ -130,13 +130,17 @@ spacecraft_clock, spice, historical, glows, l1b, hist, HARD_NO_TRIGGER, DOWNSTRE
 
 glows, l1b, hist, glows, l2, hist, HARD, DOWNSTREAM
 glows, ancillary, pipeline-settings, glows, l2, hist, HARD, DOWNSTREAM
+glows, ancillary, l2-calibration, glows, l2, hist, HARD, DOWNSTREAM
 leapseconds, spice, historical, glows, l2, hist, HARD_NO_TRIGGER, DOWNSTREAM
 spacecraft_clock, spice, historical, glows, l2, hist, HARD_NO_TRIGGER, DOWNSTREAM
+imap_frames, spice, historical, glows, l2, hist, HARD_NO_TRIGGER, DOWNSTREAM
+science_frames, spice, historical, glows, l2, hist, HARD_NO_TRIGGER, DOWNSTREAM
+pointing_attitude, spice, historical, glows, l2, hist, HARD_NO_TRIGGER, DOWNSTREAM
 
 glows, l2, hist, glows, l3a, hist, HARD, DOWNSTREAM
 glows, ancillary, calibration-data, glows, l3a, hist, HARD, DOWNSTREAM
-glows, ancillary, time-dep-bckgrd, glows, l3a, hist, HARD, DOWNSTREAM
-glows, ancillary, map-of-extra-helio-bckgrd, glows, l3a, hist, HARD, DOWNSTREAM
+glows, ancillary, l3a-time-dep-bckgrd, glows, l3a, hist, HARD, DOWNSTREAM
+glows, ancillary, l3a-map-of-extra-helio-bckgrd, glows, l3a, hist, HARD, DOWNSTREAM
 glows, ancillary, pipeline-settings, glows, l3a, hist, HARD, DOWNSTREAM
 
 # <---- HI Dependencies ---->
@@ -158,7 +162,7 @@ leapseconds, spice, historical, hi, l1b, 45sensor-de, HARD_NO_TRIGGER, DOWNSTREA
 spacecraft_clock, spice, historical, hi, l1b, 45sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, hi, l1b, 45sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, hi, l1b, 45sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
-attitude_history, spice, historical, hi, l1b, 45sensor-de, HARD, DOWNSTREAM
+attitude_history, spice, historical, hi, l1b, 45sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, hi, l1b, 45sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_predicted, spice, best, hi, l1b, 45sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_90days, spice, best, hi, l1b, 45sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
@@ -172,13 +176,31 @@ leapseconds, spice, historical, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREA
 spacecraft_clock, spice, historical, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
-attitude_history, spice, historical, hi, l1b, 90sensor-de, HARD, DOWNSTREAM
+attitude_history, spice, historical, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_predicted, spice, best, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_90days, spice, best, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 spin, spin, historical, hi, l1b, 90sensor-de, HARD_NO_TRIGGER, DOWNSTREAM
 
-# L1C 45sensor-pset
+# hi l1b 45sensor-goodtimes
+leapseconds, spice, historical, hi, l1b, 45sensor-goodtimes, HARD_NO_TRIGGER, DOWNSTREAM
+spacecraft_clock, spice, historical, hi, l1b, 45sensor-goodtimes, HARD_NO_TRIGGER, DOWNSTREAM
+repoint, repoint, historical, hi, l1b, 45sensor-goodtimes, HARD_NO_TRIGGER, DOWNSTREAM
+hi, l1a, 45sensor-diagfee, hi, l1b, 45sensor-goodtimes, HARD, DOWNSTREAM
+hi, l1b, 45sensor-hk, hi, l1b, 45sensor-goodtimes, HARD, DOWNSTREAM
+hi, l1b, 45sensor-de, hi, l1b, 45sensor-goodtimes, HARD, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l1b, 45sensor-goodtimes, HARD, DOWNSTREAM
+
+# hi l1b 90sensor-goodtimes
+leapseconds, spice, historical, hi, l1b, 90sensor-goodtimes, HARD_NO_TRIGGER, DOWNSTREAM
+spacecraft_clock, spice, historical, hi, l1b, 90sensor-goodtimes, HARD_NO_TRIGGER, DOWNSTREAM
+repoint, repoint, historical, hi, l1b, 90sensor-goodtimes, HARD_NO_TRIGGER, DOWNSTREAM
+hi, l1a, 90sensor-diagfee, hi, l1b, 90sensor-goodtimes, HARD, DOWNSTREAM
+hi, l1b, 90sensor-hk, hi, l1b, 90sensor-goodtimes, HARD, DOWNSTREAM
+hi, l1b, 90sensor-de, hi, l1b, 90sensor-goodtimes, HARD, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l1b, 90sensor-goodtimes, HARD, DOWNSTREAM
+
+# hi l1c 45sensor-pset
 leapseconds, spice, historical, hi, l1c, 45sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
 spacecraft_clock, spice, historical, hi, l1c, 45sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, hi, l1c, 45sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
@@ -192,9 +214,11 @@ ephemeris_90days, spice, best, hi, l1c, 45sensor-pset, HARD_NO_TRIGGER, DOWNSTRE
 repoint, repoint, historical, hi, l1c, 45sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
 spin, spin, historical, hi, l1c, 45sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
 hi, ancillary, 45sensor-cal-prod, hi, l1c, 45sensor-pset, HARD, DOWNSTREAM
+hi, ancillary, 45sensor-goodtimes, hi, l1c, 45sensor-pset, HARD, DOWNSTREAM
 hi, l1b, 45sensor-de, hi, l1c, 45sensor-pset, HARD, DOWNSTREAM
+hi, l1b, 45sensor-goodtimes, hi, l1c, 45sensor-pset, HARD, DOWNSTREAM
 
-# L1C 90sensor-pset
+# hi l1c 90sensor-pset
 leapseconds, spice, historical, hi, l1c, 90sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
 spacecraft_clock, spice, historical, hi, l1c, 90sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, hi, l1c, 90sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
@@ -208,7 +232,9 @@ ephemeris_90days, spice, best, hi, l1c, 90sensor-pset, HARD_NO_TRIGGER, DOWNSTRE
 repoint, repoint, historical, hi, l1c, 90sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
 spin, spin, historical, hi, l1c, 90sensor-pset, HARD_NO_TRIGGER, DOWNSTREAM
 hi, ancillary, 90sensor-cal-prod, hi, l1c, 90sensor-pset, HARD, DOWNSTREAM
+hi, ancillary, 90sensor-goodtimes, hi, l1c, 90sensor-pset, HARD, DOWNSTREAM
 hi, l1b, 90sensor-de, hi, l1c, 90sensor-pset, HARD, DOWNSTREAM
+hi, l1b, 90sensor-goodtimes, hi, l1c, 90sensor-pset, HARD, DOWNSTREAM
 
 # Hi L2 Map Dependencies:
 # Roughly 50 different Hi maps will be made - with the following parameters...
@@ -319,81 +345,106 @@ ephemeris_reconstructed, spice, historical, hi, l2, h90-ena-h-sf-nsp-ram-hae-4de
 ephemeris_reconstructed, spice, historical, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+# ephemeris_predicted
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 # ancillary - cal-prod
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-cal-prod, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 # ancillary - esa-energies
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-energies, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 # ancillary - esa-eta-fit-factors
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 90sensor-esa-eta-fit-factors, hi, l2, h90-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 # L1C PSET
 hi, l1c, 90sensor-pset, hi, l2, h90-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
 hi, l1c, 90sensor-pset, hi, l2, h90-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
@@ -521,81 +572,106 @@ ephemeris_reconstructed, spice, historical, hi, l2, h45-ena-h-sf-nsp-ram-hae-4de
 ephemeris_reconstructed, spice, historical, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+# ephemeris_predicted
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 # ancillary - cal-prod
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-cal-prod, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 # ancillary - esa-energies
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-energies, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 # ancillary - esa-eta-fit-factors
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-3mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
-hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-anti-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-full-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-6mo, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-ram-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-sf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+hi, ancillary, 45sensor-esa-eta-fit-factors, hi, l2, h45-ena-h-hf-nsp-anti-hae-4deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 # L1C PSET
 hi, l1c, 45sensor-pset, hi, l2, h45-ena-h-sf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
 hi, l1c, 45sensor-pset, hi, l2, h45-ena-h-hf-nsp-full-hae-6deg-3mo, HARD_NO_TRIGGER, DOWNSTREAM
@@ -709,6 +785,8 @@ attitude_history, spice, historical, idex, l1b, sci-1week, HARD, DOWNSTREAM
 planetary_ephemeris, spice, historical, idex, l1b, sci-1week, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, idex, l1b, sci-1week, HARD_NO_TRIGGER, DOWNSTREAM
 
+idex, l1a, msg, idex, l1b, msg, HARD, DOWNSTREAM
+
 idex, l1b, sci-1week, idex, l2a, sci-1week, HARD, DOWNSTREAM
 idex, ancillary, l2a-calibration-curve-yield-params, idex, l2a, sci-1week, HARD, DOWNSTREAM
 idex, ancillary, l2a-calibration-curve-t-rise, idex, l2a, sci-1week, HARD, DOWNSTREAM
@@ -716,7 +794,7 @@ idex, ancillary, l2a-calibration-curve-t-rise, idex, l2a, sci-1week, HARD, DOWNS
 idex, l2a, sci-1week, idex, l2b, all-1mo, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, idex, l2b, all-1mo, HARD_NO_TRIGGER, DOWNSTREAM
 spacecraft_clock, spice, historical, idex, l2b, all-1mo, HARD_NO_TRIGGER, DOWNSTREAM
-idex, l1b, evt, idex, l2b, all-1mo, HARD_NO_TRIGGER, DOWNSTREAM
+idex, l1b, msg, idex, l2b, all-1mo, HARD_NO_TRIGGER, DOWNSTREAM
 
 # <---- LO Dependencies ---->
 lo, l0, raw, lo, l1a, all, HARD, DOWNSTREAM
@@ -794,6 +872,7 @@ lo, l1c, pset, lo, l2, l090-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWN
 spacecraft_clock, spice, historical, lo, l2, l090-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, lo, l2, l090-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, lo, l2, l090-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, lo, l2, l090-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, lo, l2, l090-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, lo, l2, l090-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, lo, l2, l090-ena-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
@@ -803,6 +882,7 @@ lo, l1c, pset, lo, l2, l090-ena-h-hk-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWN
 spacecraft_clock, spice, historical, lo, l2, l090-ena-h-hk-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, lo, l2, l090-ena-h-hk-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, lo, l2, l090-ena-h-hk-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, lo, l2, l090-ena-h-hk-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, lo, l2, l090-ena-h-hk-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, lo, l2, l090-ena-h-hk-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, lo, l2, l090-ena-h-hk-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
@@ -812,6 +892,7 @@ lo, l1c, pset, lo, l2, l090-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWN
 spacecraft_clock, spice, historical, lo, l2, l090-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, lo, l2, l090-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, lo, l2, l090-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, lo, l2, l090-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, lo, l2, l090-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, lo, l2, l090-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, lo, l2, l090-ena-h-hf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
@@ -821,6 +902,7 @@ lo, l1c, pset, lo, l2, l090-ena-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWN
 spacecraft_clock, spice, historical, lo, l2, l090-ena-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, lo, l2, l090-ena-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, lo, l2, l090-ena-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, lo, l2, l090-ena-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, lo, l2, l090-ena-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, lo, l2, l090-ena-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, lo, l2, l090-ena-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
@@ -830,6 +912,7 @@ lo, l1c, pset, lo, l2, l090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWN
 spacecraft_clock, spice, historical, lo, l2, l090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, lo, l2, l090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, lo, l2, l090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, lo, l2, l090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, lo, l2, l090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, lo, l2, l090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, lo, l2, l090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
@@ -839,6 +922,7 @@ lo, l1c, pset, lo, l2, l090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWN
 spacecraft_clock, spice, historical, lo, l2, l090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, lo, l2, l090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, lo, l2, l090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, lo, l2, l090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, lo, l2, l090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, lo, l2, l090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, lo, l2, l090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
@@ -848,6 +932,7 @@ lo, l1c, pset, lo, l2, t090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWN
 spacecraft_clock, spice, historical, lo, l2, t090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, lo, l2, t090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, lo, l2, t090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, lo, l2, t090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, lo, l2, t090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, lo, l2, t090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, lo, l2, t090-isn-h-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
@@ -857,6 +942,7 @@ lo, l1c, pset, lo, l2, t090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWN
 spacecraft_clock, spice, historical, lo, l2, t090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 leapseconds, spice, historical, lo, l2, t090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 ephemeris_reconstructed, spice, historical, lo, l2, t090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
+ephemeris_predicted, spice, historical, lo, l2, t090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 imap_frames, spice, historical, lo, l2, t090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 planetary_ephemeris, spice, historical, lo, l2, t090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
 science_frames, spice, historical, lo, l2, t090-isn-o-sf-nsp-ram-hae-6deg-1yr, HARD_NO_TRIGGER, DOWNSTREAM
@@ -1046,9 +1132,9 @@ swapi, ancillary, energy-gf-sw-lut, swapi, l3b, combined, HARD, DOWNSTREAM
 
 # <---- SWE Dependencies ---->
 
-swe, l0, raw, swe, l1a, sci, HARD, DOWNSTREAM
-leapseconds, spice, historical, swe, l1a, sci, HARD_NO_TRIGGER, DOWNSTREAM
-spacecraft_clock, spice, historical, swe, l1a, sci, HARD_NO_TRIGGER, DOWNSTREAM
+swe, l0, raw, swe, l1a, all, HARD, DOWNSTREAM
+leapseconds, spice, historical, swe, l1a, all, HARD_NO_TRIGGER, DOWNSTREAM
+spacecraft_clock, spice, historical, swe, l1a, all, HARD_NO_TRIGGER, DOWNSTREAM
 
 swe, l1a, sci, swe, l1b, sci, HARD, DOWNSTREAM
 swe, ancillary, l1b-in-flight-cal, swe, l1b, sci, HARD, DOWNSTREAM

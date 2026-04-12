@@ -35,9 +35,11 @@ from sds_data_manager.lambda_code.SDSCode.pipeline_lambdas import (
 )
 from sds_data_manager.lambda_code.SDSCode.pipeline_lambdas.batch_starter import (
     CadenceDays,
+    cadence_reprocessing_event,
     determine_date_range,
     determine_job_version,
     lambda_handler,
+    submit_all_jobs,
     upload_dependency_file,
 )
 
@@ -145,7 +147,7 @@ def test_lambda_handler(session, s3_client, mock_upload_request_success):
         lambda_handler(events, context)
         mock_batch_client.submit_job.assert_called_once()
         mock_batch_client.submit_job.assert_called_with(
-            jobName="swe-l1a-sci-job-1",
+            jobName="swe-l1a-all-job-1",
             jobQueue="ProcessingJobQueue",
             jobDefinition="ProcessingJob-swe",
             containerOverrides={
@@ -155,13 +157,13 @@ def test_lambda_handler(session, s3_client, mock_upload_request_success):
                     "--data-level",
                     "l1a",
                     "--descriptor",
-                    "sci",
+                    "all",
                     "--start-date",
                     "20240101",
                     "--version",
                     "v001",
                     "--dependency",
-                    "imap_swe_l1a_sci-c685cc19_20240101_v001.json",
+                    "imap_swe_l1a_all-c685cc19_20240101_v001.json",
                     "--upload-to-sdc",
                 ]
             },
@@ -182,7 +184,7 @@ def test_lambda_handler(session, s3_client, mock_upload_request_success):
         lambda_handler(events, context)
         mock_submit.assert_called_with(
             session,
-            {"data_source": "swe", "data_type": "l1a", "descriptor": "sci"},
+            {"data_source": "swe", "data_type": "l1a", "descriptor": "all"},
             "20240101",
             "v001",
             processing_input.serialize(),
@@ -805,7 +807,7 @@ def test_bulk_reprocessing_data_level(session, caplog, auth_event):
         "start_date": "20220101",
         "end_date": "20220301",
         "data_level": "l1a",
-        "descriptor": "sci",
+        "descriptor": "all",
     }
     # Create an authenticated event
     events = auth_event({"queryStringParameters": query_params})
@@ -1192,9 +1194,32 @@ def test_lambda_handler_duplicate_mag_l1c_job(
 
 
 ### TEST CADENCE EVENT
-def test_def_cadence_map_event(
+# TODO remove this test once the three month maps are created. See "TODO" in
+#  cadence_reprocessing_event function for more details.
+def test_cadence_map_event_reprocess(
     setup_s3, session, tmp_path, mock_upload_request_success
 ):
+    """Test the default map start date."""
+    job = {
+        "data_source": "ultra",
+        "data_type": "l2",
+        "descriptor": "u90-ena-h-hf-nsp-full-hae-2deg-3mo",
+    }
+    with patch(
+        "sds_data_manager.lambda_code.SDSCode.pipeline_lambdas.batch_starter"
+        ".cadence_processing_event"
+    ) as mock_processing_event:
+        # There are no processing job records in the database, so the cadence event
+        # should default to january 17th. The end date should be three months later,
+        # april 17th.
+        cadence_reprocessing_event(session, job, "20250301", "20250601")
+
+        mock_processing_event.assert_called_with(
+            session, events=None, job=job, start_date="20260117", end_date="20260417"
+        )
+
+
+def test_cadence_map_event(setup_s3, session, tmp_path, mock_upload_request_success):
     """Test that a cadence event kicks off the right processing job."""
     _static_spice_files(session)
     # Add 10 months of ultra l1c "45sensor" pset files to the database
@@ -1312,19 +1337,155 @@ def test_def_cadence_map_event(
         )
 
 
+def test_idex_l1b(session, auth_event, mock_upload_request_success, caplog):
+    """Tests ``submit_all_jobs`` for unique idex job with buffered query start date."""
+    _static_spice_files(session)
+    # Add idex l1a sci-1week file for 20251018 and spin file covering the date range.
+    session.add_all(
+        [
+            ScienceFiles(
+                file_path="/path/to/imap_idex_l1a_sci-1week_20251018_v001.cdf",
+                instrument="idex",
+                data_level="l1a",
+                descriptor="sci-1week",
+                start_date=datetime(2025, 10, 18),
+                version="v001",
+                extension="cdf",
+                ingestion_date=datetime.strptime(
+                    "2024-01-25 23:35:26+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+            ),
+            # Spin file covering the buffered query window (12 days before 20251018)
+            SpinFiles(
+                file_path="imap_2025_291_2025_292_01.spin.csv",
+                start_date=datetime(2025, 10, 18),
+                end_date=datetime(2025, 10, 19),
+                version="01",
+                ingestion_date=datetime.strptime(
+                    "2024-01-25 23:35:26+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+            ),  # Spin file covering the rest of the window
+            SpinFiles(
+                file_path="imap_2025_285_2025_291_01.spin.csv",
+                start_date=datetime(2025, 10, 6),
+                end_date=datetime(2025, 10, 18),
+                version="01",
+                ingestion_date=datetime.strptime(
+                    "2024-01-25 23:35:26+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+            ),
+            SPICEFiles(
+                file_path="path/to/imap_2000_055_2000_056_01.ah.bc",
+                file_name="imap_2000_055_2000_056_01.ah.bc",
+                ingestion_date=datetime.now(),
+                file_root="imap_2000_055_2000_056_.ah.bc",
+                kernel_type="attitude_history",
+                min_date_j2000=86400.1854936,
+                max_date_j2000=4575787269.1854936,
+                file_intervals_j2000=[[86400, 4575787269]],
+                min_date_datetime=datetime(2000, 1, 1),
+                max_date_datetime=datetime(2145, 1, 1),
+                file_intervals_datetime=[["0", "0"]],
+                min_date_sclk="",
+                max_date_sclk="",
+                file_intervals_sclk=[["0", "0"]],
+                sclk_kernel="imap_sclk_0001.tsc",
+                lsk_kernel="naif0012.tls",
+                version=1,
+            ),
+            SPICEFiles(
+                file_path="path/to/imap_recon_20240101_20240101_v01.bsp",
+                file_name="imap_recon_20240101_20240101_v01.bsp",
+                ingestion_date=datetime.strptime(
+                    "2024-01-25 23:35:26+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+                file_root="imap_recon_20240101_20240101_.bsp",
+                kernel_type="ephemeris_reconstructed",
+                min_date_j2000=0,
+                max_date_j2000=4575787269.183866,
+                file_intervals_j2000=[[0, 4575787269.183866]],
+                min_date_datetime=datetime.strptime(
+                    "2000-01-01 12:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+                max_date_datetime=datetime.strptime(
+                    "2145-01-01 00:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+                file_intervals_datetime="[[2000-01-01T00:00:00, 2145-01-01T00:00:00]]",
+                min_date_sclk="1/0000000000:00000",
+                max_date_sclk="1/4285909749:39444",
+                file_intervals_sclk="[[1/00000000000:00000, 1/4285909749:39444]]",
+                sclk_kernel="/mnt/data/imap/spice/sclk/imap_sclk_0001.tsc",
+                lsk_kernel="/mnt/data/imap/spice/lsk/naif0012.tls",
+                version=1,
+            ),
+            # Add ephemeris predicted file
+            SPICEFiles(
+                file_path="path/to/imap_pred_20240101_20240101_v01.bsp",
+                file_name="imap_pred_20240101_20240101_v01.bsp",
+                ingestion_date=datetime.strptime(
+                    "2024-01-25 23:35:26+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+                file_root="imap_pred_20240101_20240101_.bsp",
+                kernel_type="ephemeris_predicted",
+                min_date_j2000=0,
+                max_date_j2000=4575787269.183866,
+                file_intervals_j2000=[[0, 4575787269.183866]],
+                min_date_datetime=datetime.strptime(
+                    "2000-01-01 12:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+                max_date_datetime=datetime.strptime(
+                    "2145-01-01 00:00:00+00:00", "%Y-%m-%d %H:%M:%S%z"
+                ),
+                file_intervals_datetime="[[2000-01-01T00:00:00, 2145-01-01T00:00:00]]",
+                min_date_sclk="1/0000000000:00000",
+                max_date_sclk="1/4285909749:39444",
+                file_intervals_sclk="[[1/00000000000:00000, 1/4285909749:39444]]",
+                sclk_kernel="/mnt/data/imap/spice/sclk/imap_sclk_0001.tsc",
+                lsk_kernel="/mnt/data/imap/spice/lsk/naif0012.tls",
+                version=1,
+            ),
+        ]
+    )
+
+    session.commit()
+    job_node = {
+        "data_source": "idex",
+        "data_type": "l1b",
+        "descriptor": "sci-1week",
+    }
+    with (
+        patch.object(batch_starter, "try_to_submit_job") as mock_submit,
+    ):
+        submit_all_jobs(
+            session,
+            job_node,
+            "20251018",
+            "20251018",
+            repoint=None,
+            calculate_crids=False,
+        )
+
+        # Verify that try_to_submit_job was called with the correct start date
+        assert mock_submit.call_count == 1
+        call_args = mock_submit.call_args
+        assert call_args[0][2] == "20251018", (
+            f"Expected start_date 20251018, got {call_args[0][2]}"
+        )
+
+
 def test_idex_l2b(session, auth_event, mock_upload_request_success):
     """Tests ``lambda_handler` for unique idex l2b case."""
     _static_spice_files(session)
-    # Add 2 idex l1b evt files. Although the second file is out of the month range,
+    # Add 2 idex l1b msg files. Although the second file is out of the month range,
     # It should be included in the ProcessingInputCollection because IDEX l2b jobs
     # need housekeeping files that may be before the start date of the cadence job.
     session.add_all(
         [
             ScienceFiles(
-                file_path="/path/to/imap_idex_l1b_evt_20230201_v001.cdf",
+                file_path="/path/to/imap_idex_l1b_msg_20230201_v001.cdf",
                 instrument="idex",
                 data_level="l1b",
-                descriptor="evt",
+                descriptor="msg",
                 start_date=datetime(2023, 2, 1),
                 version="v001",
                 extension="cdf",
@@ -1333,10 +1494,10 @@ def test_idex_l2b(session, auth_event, mock_upload_request_success):
                 ),
             ),
             ScienceFiles(
-                file_path="/path/to/imap_idex_l1b_evt_20230101_v001.cdf",
+                file_path="/path/to/imap_idex_l1b_msg_20230101_v001.cdf",
                 instrument="idex",
                 data_level="l1b",
-                descriptor="evt",
+                descriptor="msg",
                 start_date=datetime(2023, 1, 1),
                 version="v001",
                 extension="cdf",
@@ -1370,12 +1531,12 @@ def test_idex_l2b(session, auth_event, mock_upload_request_success):
     expected_processing_input = ProcessingInputCollection(
         SPICEInput("naif0012.tls", "imap_sclk_0000.tsc"),
         ScienceInput("imap_idex_l2a_sci-1week_20230202_v001.cdf"),
-        # There will be 2 science inputs containing l1b evt dependencies.
+        # There will be 2 science inputs containing l1b msg dependencies.
         # The second input should include both l1b housekeeping files. THe IDEX
         # l2b processing code will deduplicate all of the inputs
-        ScienceInput("imap_idex_l1b_evt_20230201_v001.cdf"),
+        ScienceInput("imap_idex_l1b_msg_20230201_v001.cdf"),
         ScienceInput(
-            "imap_idex_l1b_evt_20230201_v001.cdf", "imap_idex_l1b_evt_20230101_v001.cdf"
+            "imap_idex_l1b_msg_20230201_v001.cdf", "imap_idex_l1b_msg_20230101_v001.cdf"
         ),
     )
 
@@ -1406,7 +1567,7 @@ def test_idex_l2b(session, auth_event, mock_upload_request_success):
                     "--version",
                     "v001",
                     "--dependency",
-                    "imap_idex_l2b_all-1mo-9de6e4ae_20230109_v001.json",
+                    "imap_idex_l2b_all-1mo-4976c57e_20230109_v001.json",
                     "--upload-to-sdc",
                 ]
             },
@@ -1446,7 +1607,7 @@ def test_idex_l2b(session, auth_event, mock_upload_request_success):
                     "--version",
                     "v002",
                     "--dependency",
-                    "imap_idex_l2b_all-1mo-9de6e4ae_20230109_v002.json",
+                    "imap_idex_l2b_all-1mo-4976c57e_20230109_v002.json",
                     "--upload-to-sdc",
                 ]
             },
@@ -1668,7 +1829,7 @@ def test_duplicate_job(session, first_status, second_status):
 def test_dependency_success():
     """Test the handler returns the expected dependency result."""
     dependencies = dependency.get_dependencies(
-        ("swe", "l1a", "sci"),
+        ("swe", "l1a", "all"),
         dependency_type="UPSTREAM",
         relationship="HARD",
     )
@@ -1726,7 +1887,7 @@ def test_dependency_success_empty(session):
     dependencies = dependency.get_jobs(
         data_source="swe",
         data_type="l1a",
-        descriptor="sci",
+        descriptor="all",
         dependency_type="UPSTREAM",
         relationship="HARD",
         start_date="20000101",
@@ -2006,32 +2167,6 @@ def test_repoint_date_range(
             },
             retryStrategy=batch_starter.BATCH_JOB_RETRY_STRATEGY,
         )
-
-
-def test_idex_l1a_date_range(session):
-    """Test that the date range for IDEX l1a files is correct."""
-    _static_spice_files(session)
-    session.add(
-        ScienceFiles(
-            file_path="/path/to/imap_idex_l1a_sci-1week_20251020_v001.cdf",
-            instrument="idex",
-            data_level="l1a",
-            descriptor="sci-1week",
-            start_date=datetime(2025, 10, 20),
-            version="v001",
-            extension="cdf",
-            ingestion_date=datetime.strptime(
-                "2024-01-25 23:35:26+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-        )
-    )
-    session.commit()
-
-    filename = "imap_idex_l1a_sci-1week_20251020_v001.cdf"
-    file_obj = imap_data_access.ScienceFilePath(filename)
-    date_range = determine_date_range(session, file_obj)
-    # Idex l1b jobs should have a date range of start date - 12 days - start date
-    assert date_range == ("20251008", "20251020")
 
 
 def test_lambda_skip_processing_due_to_crid_check(session, caplog):
@@ -2328,3 +2463,93 @@ def test_determine_job_version_spacecraft(session):
     )
     # The version should be v003 since there was a successful job with v002
     assert version == "v003"
+
+
+@patch(
+    "sds_data_manager.lambda_code.SDSCode.pipeline_lambdas.batch_starter.dependency.get_dependencies"
+)
+@patch(
+    "sds_data_manager.lambda_code.SDSCode.pipeline_lambdas.batch_starter.submit_all_jobs"
+)
+def test_hi_goodtimes_multi_repoint_trigger(
+    mock_submit_all_jobs,
+    mock_get_dependencies,
+    session,
+    s3_client,
+    monkeypatch,
+):
+    """Test Hi Goodtimes multi-repoint trigger logic in s3_processing_event.
+
+    When a Hi L1B DE file with repoint T arrives, it should trigger goodtimes
+    jobs for target repoints in range [T-N+1, T+N-1].
+    """
+    # Monkeypatch configuration value for testing
+    monkeypatch.setattr(dependency, "HI_GOODTIMES_NUM_NEAREST_REPOINTS", 2)
+
+    mock_get_dependencies.side_effect = [
+        [
+            {
+                "data_source": "hi",
+                "data_type": "l1b",
+                "descriptor": "45sensor-goodtimes",
+                "relationship": "HARD",
+            }
+        ],
+        [],
+    ]
+
+    # Add pointing table entries (needed for determine_date_range)
+    for i in range(1, 8):
+        session.add(
+            PointingTable(
+                pointing_id=i,
+                pointing_start_utc=datetime(2024, 1, i, 0, 0, 0),
+                pointing_end_utc=datetime(2024, 1, i, 23, 59, 0),
+                repoint_start_utc=datetime(2024, 1, i, 0, 0, 0),
+                repoint_end_utc=datetime(2024, 1, i, 1, 0, 0),
+            )
+        )
+    session.commit()
+
+    # Create an S3 event for the L1B DE file arrival (repoint 3)
+    events = {
+        "Records": [
+            {
+                "eventSourceARN": (
+                    "arn:aws:sqs:us-east-1:123456789012:test-queue.fifo"
+                ),
+                "receiptHandle": "AQEBwJnKyrHigUMZj6rYigCgxlaS3SLy0a...",
+                "body": '{"detail": '
+                '{"object": {"key": '
+                '"imap_hi_l1b_45sensor-de_20240103-repoint00003_v001.cdf"}}'
+                "}",
+            }
+        ]
+    }
+    context = {"context": "sample_context"}
+
+    with (
+        patch.object(batch_starter, "BATCH_CLIENT", Mock()),
+        patch.object(batch_starter, "generate_queue_url", return_value=False),
+    ):
+        lambda_handler(events, context)
+
+    # Verify that submit_all_jobs was called for goodtimes jobs
+    # With trigger repoint 3 and NUM_NEAREST=2, targets are [3-2+1, 3+2-1] = [2, 4]
+
+    # Find all calls to submit_all_jobs for goodtimes
+    goodtimes_calls = [
+        call_args
+        for call_args in mock_submit_all_jobs.call_args_list
+        if call_args[0][1]["descriptor"] == "45sensor-goodtimes"
+    ]
+
+    # Verify the repoints for each call
+    repoints_submitted = set()
+    for call_args in goodtimes_calls:
+        # The repoint is the 5th positional argument (index 4)
+        target_repoint = call_args.args[4]
+        repoints_submitted.add(target_repoint)
+
+    # With trigger repoint 3 and N=2, targets are [2, 3, 4]
+    assert repoints_submitted == {2, 3, 4}

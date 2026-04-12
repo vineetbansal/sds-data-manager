@@ -19,6 +19,7 @@ from constructs import Construct
 
 from sds_data_manager.constructs.api_gateway_construct import ApiGateway
 from sds_data_manager.constructs.database_construct import SdpDatabase
+from sds_data_manager.lambda_code.SDSCode.pipeline_lambdas import FIRST_MAP_START_DATE
 from sds_data_manager.lambda_code.SDSCode.pipeline_lambdas.batch_starter import (
     CadenceDays,
 )
@@ -93,7 +94,9 @@ class BatchStarterLambda(Construct):
             runtime=lambda_.Runtime.PYTHON_3_12,
             environment=lambda_environment,
             memory_size=512,
-            timeout=Duration.minutes(5),
+            # Set max to 15 mins temporarily for the 3 month map cadence job.
+            # TODO determine if we need 15 mins or if we can reduce this.
+            timeout=Duration.minutes(15),
             vpc=vpc,
             vpc_subnets=subnet,
             security_groups=[rds_security_group],
@@ -165,8 +168,8 @@ class BatchStarterLambda(Construct):
         # Note: We are defining the schedules to run at minute level intervals because
         # AWS EventBridge Scheduler does not allow for decimal values in the rate
         # expression. E.g., we cannot specify "rate(91.2 days)" for 3 months.
-        phase_e_start_date = datetime.datetime(2026, 2, 1, tzinfo=datetime.timezone.utc)
-        first_map_jobs = phase_e_start_date + datetime.timedelta(
+        # Determine the first map trigger date by taking the start date + 3 months.
+        first_map_jobs = FIRST_MAP_START_DATE + datetime.timedelta(
             days=CadenceDays.THREE_MONTHS.value
         )
         # 1mo jobs are not map jobs. We want them to start earlier. E.g. IDEX l2b is
