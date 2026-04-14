@@ -393,7 +393,7 @@ def test_s3_repoint_files(mock_download, session, s3_client, events_client):
     expected_end_date = (
         last_pointing.pointing_end_utc or last_pointing.pointing_start_utc
     )
-    assert repoint_file_entry.end_date == expected_end_date
+    assert repoint_file_entry.end_date == expected_end_date.replace(tzinfo=None)
     assert repoint_file_entry.ingestion_date is not None
 
 
@@ -493,13 +493,21 @@ def test_index_pointing_data_updates_null_values(mock_download, session, tmpdir)
     )
 
     # i_pointing repoint_end_utc
-    assert first_pointing_entry.pointing_start_utc == datetime(2025, 7, 1, 10, 10, 0)
+    assert first_pointing_entry.pointing_start_utc.replace(tzinfo=None) == datetime(
+        2025, 7, 1, 10, 10, 0
+    )
     # i_pointing + 1 repoint_end_utc
-    assert first_pointing_entry.pointing_end_utc == datetime(2025, 7, 2, 10, 10, 0)
+    assert first_pointing_entry.pointing_end_utc.replace(tzinfo=None) == datetime(
+        2025, 7, 2, 10, 10, 0
+    )
     # # i_pointing + 1 repoint_start_utc
-    assert first_pointing_entry.repoint_start_utc == datetime(2025, 7, 2, 10, 0, 0)
+    assert first_pointing_entry.repoint_start_utc.replace(tzinfo=None) == datetime(
+        2025, 7, 2, 10, 0, 0
+    )
     # # i_pointing + 1 repoint_end_utc
-    assert first_pointing_entry.repoint_end_utc == datetime(2025, 7, 2, 10, 10, 0)
+    assert first_pointing_entry.repoint_end_utc.replace(tzinfo=None) == datetime(
+        2025, 7, 2, 10, 10, 0
+    )
 
 
 @patch(

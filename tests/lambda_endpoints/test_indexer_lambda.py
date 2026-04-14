@@ -108,8 +108,8 @@ def test_batch_job_event(session, events_client):
         event["detail"]["stoppedAt"] / 1000, tz=timezone.utc
     ).replace(tzinfo=None)
 
-    assert processing_job.started_at == expected_started_at
-    assert processing_job.stopped_at == expected_stopped_at
+    assert processing_job.started_at.replace(tzinfo=None) == expected_started_at
+    assert processing_job.stopped_at.replace(tzinfo=None) == expected_stopped_at
 
     # Test for succeeded case
     event["detail"]["status"] = "SUCCEEDED"
