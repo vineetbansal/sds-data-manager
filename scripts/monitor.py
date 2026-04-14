@@ -82,57 +82,57 @@ def init_db():
         #     lsk_kernel=str(generate_imap_file_path("naif0012.tls").construct_path()),
         #     version=145,
         # ),
-        AncillaryFiles(
-            file_path=str(
-                generate_imap_file_path(
-                    "imap_swe_esa-lut_20250301_v001.csv"
-                ).construct_path()
-            ),
-            instrument="swe",
-            descriptor="esa-lut",
-            start_date=datetime(2025, 3, 1),
-            version="v001",
-            extension="csv",
-            ingestion_date=datetime.strptime(
-                "2025-04-30 18:24:02+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-        ),
-        AncillaryFiles(
-            file_path=str(
-                generate_imap_file_path(
-                    "imap_swe_eu-conversion_20240510_v001.csv"
-                ).construct_path()
-            ),
-            instrument="swe",
-            descriptor="eu-conversion",
-            start_date=datetime(2024, 5, 10),
-            version="v001",
-            extension="csv",
-            ingestion_date=datetime.strptime(
-                "2025-04-30 18:24:03+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-        ),
-        AncillaryFiles(
-            file_path=str(
-                generate_imap_file_path(
-                    "imap_swe_l1b-in-flight-cal_20240510_20260716_v019.csv"
-                ).construct_path()
-            ),
-            instrument="swe",
-            descriptor="l1b-in-flight-cal",
-            start_date=datetime(2024, 5, 10),
-            end_date=datetime(2026, 7, 16),
-            version="v019",
-            extension="csv",
-            ingestion_date=datetime.strptime(
-                "2025-04-30 18:24:04+00:00", "%Y-%m-%d %H:%M:%S%z"
-            ),
-        ),
+        # AncillaryFiles(
+        #     file_path=str(
+        #         generate_imap_file_path(
+        #             "imap_swe_esa-lut_20250301_v001.csv"
+        #         ).construct_path()
+        #     ),
+        #     instrument="swe",
+        #     descriptor="esa-lut",
+        #     start_date=datetime(2025, 3, 1),
+        #     version="v001",
+        #     extension="csv",
+        #     ingestion_date=datetime.strptime(
+        #         "2025-04-30 18:24:02+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        # ),
+        # AncillaryFiles(
+        #     file_path=str(
+        #         generate_imap_file_path(
+        #             "imap_swe_eu-conversion_20240510_v001.csv"
+        #         ).construct_path()
+        #     ),
+        #     instrument="swe",
+        #     descriptor="eu-conversion",
+        #     start_date=datetime(2024, 5, 10),
+        #     version="v001",
+        #     extension="csv",
+        #     ingestion_date=datetime.strptime(
+        #         "2025-04-30 18:24:03+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        # ),
+        # AncillaryFiles(
+        #     file_path=str(
+        #         generate_imap_file_path(
+        #             "imap_swe_l1b-in-flight-cal_20240510_20260716_v019.csv"
+        #         ).construct_path()
+        #     ),
+        #     instrument="swe",
+        #     descriptor="l1b-in-flight-cal",
+        #     start_date=datetime(2024, 5, 10),
+        #     end_date=datetime(2026, 7, 16),
+        #     version="v019",
+        #     extension="csv",
+        #     ingestion_date=datetime.strptime(
+        #         "2025-04-30 18:24:04+00:00", "%Y-%m-%d %H:%M:%S%z"
+        #     ),
+        # ),
     ]
 
-    with sessionmaker(bind=database.get_engine())() as session:
-        session.add_all(records)
-        session.commit()
+    # with sessionmaker(bind=database.get_engine())() as session:
+    #     session.add_all(records)
+    #     session.commit()
 
 
 def _index_file(filename: str, engine) -> None:

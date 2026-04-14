@@ -3,7 +3,7 @@ import os
 import re
 import yaml
 
-DATA_DIR = "/media/vineetb/delta/projects/imap/data/sds"
+DATA_DIR = "/media/vineetb/T7"
 
 MISSION = "imap"
 
@@ -115,6 +115,7 @@ rule imap_processing:
     output:
         DATA_DIR + f"/{MISSION}/{{instrument}}/{{out_level}}/{{year}}/{{month}}/{MISSION}_{{instrument}}_{{out_level}}_{{out_desc}}_{{year}}{{month}}{{day}}_{{version}}.cdf"
     shell:
-        "imap_cli --instrument {wildcards.instrument} --data-level {wildcards.out_level} --descriptor {wildcards.out_desc} --start-date {wildcards.year}{wildcards.month}{wildcards.day} --version {wildcards.version}"
+        # "imap_cli --instrument {wildcards.instrument} --data-level {wildcards.out_level} --descriptor {wildcards.out_desc} --start-date {wildcards.year}{wildcards.month}{wildcards.day} --version {wildcards.version}"
+        "touch {output}"
 
 # --------------- Snakemake Rules --------------- #
