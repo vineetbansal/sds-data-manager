@@ -41,6 +41,8 @@ pydata-sphinx-theme = {version="^0.13.3", optional=true}
 snakemake = "^9.19.0"
 networkx = "^3.6.1"
 matplotlib = "^3.10.8"
+pydot = "^4.0.1"
+pygraphviz = "^1.14"
 
 [tool.poetry.group.cdk-install.dependencies]
 aws-cdk-lib = ">=2.202.0,<3.0.0"

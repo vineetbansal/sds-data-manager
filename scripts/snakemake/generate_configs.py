@@ -143,6 +143,8 @@ def main() -> None:
     os.makedirs(CONFIG_DIR, exist_ok=True)
     graphs = build_graphs(CSV_PATH)
     for instrument in sorted(graphs):
+        if instrument != "lo":
+            continue
         check_no_cycles(instrument, graphs[instrument])
         check_single_paths(instrument, graphs[instrument])
         pairs = all_edges(graphs[instrument])
