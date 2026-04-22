@@ -35,6 +35,7 @@ from sds_data_manager.lambda_code.SDSCode.pipeline_lambdas import (
 )
 from sds_data_manager.lambda_code.SDSCode.pipeline_lambdas.batch_starter import (
     CadenceDays,
+    cadence_reprocessing_event,
     determine_date_range,
     determine_job_version,
     lambda_handler,
@@ -146,7 +147,7 @@ def test_lambda_handler(session, s3_client, mock_upload_request_success):
         lambda_handler(events, context)
         mock_batch_client.submit_job.assert_called_once()
         mock_batch_client.submit_job.assert_called_with(
-            jobName="swe-l1a-sci-job-1",
+            jobName="swe-l1a-all-job-1",
             jobQueue="ProcessingJobQueue",
             jobDefinition="ProcessingJob-swe",
             containerOverrides={
@@ -156,13 +157,13 @@ def test_lambda_handler(session, s3_client, mock_upload_request_success):
                     "--data-level",
                     "l1a",
                     "--descriptor",
-                    "sci",
+                    "all",
                     "--start-date",
                     "20240101",
                     "--version",
                     "v001",
                     "--dependency",
-                    "imap_swe_l1a_sci-c685cc19_20240101_v001.json",
+                    "imap_swe_l1a_all-c685cc19_20240101_v001.json",
                     "--upload-to-sdc",
                 ]
             },
@@ -183,7 +184,7 @@ def test_lambda_handler(session, s3_client, mock_upload_request_success):
         lambda_handler(events, context)
         mock_submit.assert_called_with(
             session,
-            {"data_source": "swe", "data_type": "l1a", "descriptor": "sci"},
+            {"data_source": "swe", "data_type": "l1a", "descriptor": "all"},
             "20240101",
             "v001",
             processing_input.serialize(),
@@ -806,7 +807,7 @@ def test_bulk_reprocessing_data_level(session, caplog, auth_event):
         "start_date": "20220101",
         "end_date": "20220301",
         "data_level": "l1a",
-        "descriptor": "sci",
+        "descriptor": "all",
     }
     # Create an authenticated event
     events = auth_event({"queryStringParameters": query_params})
@@ -1193,9 +1194,32 @@ def test_lambda_handler_duplicate_mag_l1c_job(
 
 
 ### TEST CADENCE EVENT
-def test_def_cadence_map_event(
+# TODO remove this test once the three month maps are created. See "TODO" in
+#  cadence_reprocessing_event function for more details.
+def test_cadence_map_event_reprocess(
     setup_s3, session, tmp_path, mock_upload_request_success
 ):
+    """Test the default map start date."""
+    job = {
+        "data_source": "ultra",
+        "data_type": "l2",
+        "descriptor": "u90-ena-h-hf-nsp-full-hae-2deg-3mo",
+    }
+    with patch(
+        "sds_data_manager.lambda_code.SDSCode.pipeline_lambdas.batch_starter"
+        ".cadence_processing_event"
+    ) as mock_processing_event:
+        # There are no processing job records in the database, so the cadence event
+        # should default to january 17th. The end date should be three months later,
+        # april 17th.
+        cadence_reprocessing_event(session, job, "20250301", "20250601")
+
+        mock_processing_event.assert_called_with(
+            session, events=None, job=job, start_date="20260117", end_date="20260417"
+        )
+
+
+def test_cadence_map_event(setup_s3, session, tmp_path, mock_upload_request_success):
     """Test that a cadence event kicks off the right processing job."""
     _static_spice_files(session)
     # Add 10 months of ultra l1c "45sensor" pset files to the database
@@ -1805,7 +1829,7 @@ def test_duplicate_job(session, first_status, second_status):
 def test_dependency_success():
     """Test the handler returns the expected dependency result."""
     dependencies = dependency.get_dependencies(
-        ("swe", "l1a", "sci"),
+        ("swe", "l1a", "all"),
         dependency_type="UPSTREAM",
         relationship="HARD",
     )
@@ -1863,7 +1887,7 @@ def test_dependency_success_empty(session):
     dependencies = dependency.get_jobs(
         data_source="swe",
         data_type="l1a",
-        descriptor="sci",
+        descriptor="all",
         dependency_type="UPSTREAM",
         relationship="HARD",
         start_date="20000101",
