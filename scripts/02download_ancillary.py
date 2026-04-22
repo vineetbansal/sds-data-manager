@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 
 if __name__ == "__main__":
-    start = datetime(2025, 9, 1, tzinfo=timezone.utc)
+    start = datetime(2026, 4, 1, tzinfo=timezone.utc)
 
     results = imap_data_access.query(table="ancillary", start_date=start.strftime("%Y%m%d"))
     for result in results:
