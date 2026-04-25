@@ -136,7 +136,9 @@ def init_db():
 
 
 def _index_file(filename: str, engine) -> None:
-    file_path_str = str(generate_imap_file_path(filename).construct_path())
+    data_dir = Path(imap_data_access.config["DATA_DIR"])
+    full_path = generate_imap_file_path(filename).construct_path()
+    file_path_str = str(full_path.relative_to(data_dir))
     try:
         file_obj = ScienceFilePath(filename)
         sci_params = file_obj.extract_filename_components(filename)
@@ -147,7 +149,10 @@ def _index_file(filename: str, engine) -> None:
         sci_params["file_path"] = file_path_str
         sci_params["ingestion_date"] = datetime.now(tz=timezone.utc)
         with sessionmaker(bind=engine)() as session:
-            if not session.query(ScienceFiles).filter_by(file_path=file_path_str).first():
+            already_indexed = session.query(ScienceFiles).filter(
+                ScienceFiles.file_path.like(f"%{filename}")
+            ).first()
+            if not already_indexed:
                 session.add(ScienceFiles(**sci_params))
                 session.commit()
     except Exception:
