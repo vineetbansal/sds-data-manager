@@ -15,7 +15,12 @@
     ]
   },
   "context": {
-    "account_name": "dev",
+    "account_name": "vineetb",
+    "vineetb": {
+      "account": "040084234705",
+      "domain_name": "vineetb-imap-mission.com",
+      "region": "us-east-1"
+    },
     "backup": {
       "account": "012345678901",
       "source_account": "dev"

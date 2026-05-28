@@ -265,9 +265,6 @@ class IalirtApiManager(Construct):
             # and DynamoDB queries are often CPU-bound due to
             # JSON parsing and network serialization.
             memory_size=2048,
-            # Prevents a bad actor from excessive use.
-            # Means number of lambdas that can be used simultaneously.
-            reserved_concurrent_executions=300,
             environment={
                 "DATA_TABLE": data_table.table_name,
                 "REGION": env.region,
