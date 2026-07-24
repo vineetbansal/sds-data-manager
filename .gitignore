@@ -47,3 +47,11 @@ docs/build/
 
 #Dagster testing
 .tmp*/
+
+# Local Dagster instance (DAGSTER_HOME) - SQLite storage, logs, run artifacts
+.dagster_home/storage/
+.dagster_home/history/
+.dagster_home/schedules/
+.dagster_home/logs/
+.dagster_home/*.db
+.dagster_home/.telemetry/

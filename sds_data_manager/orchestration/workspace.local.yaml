@@ -1,0 +1,6 @@
+# Local development workspace. Loads local_dagster.py, which installs local
+# stand-ins for the AWS Batch/ECR/SQS clients before exposing the Definitions.
+# The deployed workspace.yaml loads imap_dagster.py directly and is unaffected.
+load_from:
+  - python_file:
+      relative_path: local_dagster.py

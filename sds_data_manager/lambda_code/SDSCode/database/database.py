@@ -24,12 +24,19 @@ def get_engine():
     if _ENGINE is not None:
         return _ENGINE
 
-    secret_name = os.getenv("SECRET_NAME")
-    session = boto3.session.Session()
-    client = session.client(service_name="secretsmanager")
-    secret_string = client.get_secret_value(SecretId=secret_name)["SecretString"]
-    db_config = json.loads(secret_string)
-    db_uri = f"postgresql://{db_config['username']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['dbname']}"
+    # Local development escape hatch. When DATABASE_URL is set we connect to it
+    # directly and never reach for Secrets Manager, which lets the orchestration
+    # code run against a local Postgres with no AWS credentials. This is the same
+    # variable alembic reads (see alembic/env.py), so both point at one database.
+    db_uri = os.getenv("DATABASE_URL")
+
+    if not db_uri:
+        secret_name = os.getenv("SECRET_NAME")
+        session = boto3.session.Session()
+        client = session.client(service_name="secretsmanager")
+        secret_string = client.get_secret_value(SecretId=secret_name)["SecretString"]
+        db_config = json.loads(secret_string)
+        db_uri = f"postgresql://{db_config['username']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['dbname']}"
 
     _ENGINE = create_engine(db_uri, poolclass=NullPool)
 
