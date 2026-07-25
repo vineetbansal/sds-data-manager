@@ -12,6 +12,7 @@ import logging
 import os
 import subprocess
 import sys
+import traceback
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -23,7 +24,9 @@ LOCAL_REGISTRY_ID = "000000000000"
 LOCAL_REGISTRY = f"{LOCAL_REGISTRY_ID}.dkr.ecr.us-west-2.amazonaws.com"
 
 
-class ImageNotFoundException(Exception):
+# N818: the name has to match boto3's exactly - imap_job catches this by
+# attribute off the client, so an ...Error rename would break the lookup.
+class ImageNotFoundException(Exception):  # noqa: N818
     """Stand-in for ECR_CLIENT.exceptions.ImageNotFoundException."""
 
 
@@ -52,7 +55,7 @@ class LocalECRClient:
         """
         if processing_version is None:
             try:
-                import imap_processing
+                import imap_processing  # noqa: PLC0415
 
                 processing_version = imap_processing.__version__
             except ImportError:
@@ -87,18 +90,21 @@ class LocalBatchClient:
         timeout: int = 3600,
         allow_upload: bool = False,
         on_complete=None,
+        run_in_process: bool = False,
     ):
         """Configure how submitted jobs are handled.
 
         Parameters
         ----------
         run_locally : bool
-            When True, submit_job actually runs imap_processing.cli in a
-            subprocess and blocks until it finishes. When False (the default)
-            the command is recorded and logged but not executed, which is the
-            safer way to inspect what the pipeline wants to do.
+            When True, submit_job actually runs imap_processing.cli and blocks
+            until it finishes. When False (the default) the command is recorded
+            and logged but not executed, which is the safer way to inspect what
+            the pipeline wants to do.
         timeout : int
-            Seconds to allow a locally executed job before killing it.
+            Seconds to allow a locally executed job before killing it. Only
+            applies to subprocess execution; an in-process call cannot be
+            interrupted this way.
         allow_upload : bool
             imap_job always appends --upload-to-sdc, and imap-data-access is
             normally configured against the real SDC with a live API key, so a
@@ -108,11 +114,23 @@ class LocalBatchClient:
             Called with the submission record after a locally executed job
             finishes. Used to stand in for the S3/Batch events that would
             normally trigger the indexer lambda.
+        run_in_process : bool
+            Call imap_processing.cli.main() directly instead of spawning a
+            subprocess, so a debugger attached to the Dagster process can step
+            into instrument code. Only meaningful alongside run_locally.
+
+            This is a debugging aid, not a faster execution mode. Dropping the
+            process boundary means spiceypy's kernel pool, imap_processing's
+            logging configuration and any leaked memory now persist across every
+            job in the run, and a crash in a CDF library takes the whole Dagster
+            process with it rather than failing one job. Prefer the subprocess
+            path for anything resembling a backfill.
         """
         self.run_locally = run_locally
         self.timeout = timeout
         self.allow_upload = allow_upload
         self.on_complete = on_complete
+        self.run_in_process = run_in_process
         self.submitted: list[dict] = []
         self._counter = 0
 
@@ -177,24 +195,17 @@ class LocalBatchClient:
             )
             return {"jobId": f"local-{self._counter}", "jobName": jobName}
 
-        logger.info("[local batch] running %s: %s", jobName, " ".join(argv))
-        result = subprocess.run(  # noqa: S603
-            argv,
-            capture_output=True,
-            text=True,
-            timeout=self.timeout,
-            env=os.environ.copy(),
-            check=False,
-        )
-        record["returncode"] = result.returncode
-        record["stdout"] = result.stdout
-        record["stderr"] = result.stderr
-        if result.returncode != 0:
+        if self.run_in_process:
+            self._execute_in_process(jobName, command, record)
+        else:
+            self._execute_subprocess(jobName, argv, record)
+
+        if record["returncode"] != 0:
             logger.error(
                 "[local batch] %s failed (rc=%s)\n%s",
                 jobName,
-                result.returncode,
-                result.stderr[-4000:],
+                record["returncode"],
+                record.get("stderr", "")[-4000:],
             )
         else:
             logger.info("[local batch] %s finished successfully", jobName)
@@ -209,6 +220,62 @@ class LocalBatchClient:
                 logger.exception("[local batch] on_complete failed for %s", jobName)
 
         return {"jobId": f"local-{self._counter}", "jobName": jobName}
+
+    def _execute_subprocess(self, jobName, argv, record):  # noqa: N803
+        """Run the CLI in a child process and capture its output."""
+        logger.info("[local batch] running %s: %s", jobName, " ".join(argv))
+        result = subprocess.run(  # noqa: S603
+            argv,
+            capture_output=True,
+            text=True,
+            timeout=self.timeout,
+            env=os.environ.copy(),
+            check=False,
+        )
+        record["returncode"] = result.returncode
+        record["stdout"] = result.stdout
+        record["stderr"] = result.stderr
+
+    def _execute_in_process(self, jobName, command, record):  # noqa: N803
+        """Call the CLI's entrypoint directly so a debugger can step into it.
+
+        ``imap_processing.cli.main`` takes no arguments and reads ``sys.argv``,
+        so the argument list is swapped in around the call. Anything the CLI
+        would have communicated through an exit status has to be translated back
+        into a returncode here, because callers (and on_complete) only look at
+        that field.
+        """
+        # Imported lazily: the deployed path never takes this branch, and the
+        # import pulls in the full instrument stack.
+        import imap_processing.cli  # noqa: PLC0415
+
+        logger.info(
+            "[local batch] running %s in-process: imap_cli %s",
+            jobName,
+            " ".join(command),
+        )
+        saved_argv = sys.argv
+        sys.argv = ["imap_cli", *command]
+        try:
+            imap_processing.cli.main()
+            record["returncode"] = 0
+            record["stderr"] = ""
+        except SystemExit as exc:
+            # argparse calls sys.exit() on a bad argument list rather than
+            # raising, and main() itself may exit non-zero.
+            code = exc.code
+            record["returncode"] = 0 if code is None else int(code)
+            record["stderr"] = f"SystemExit({code})"
+        except Exception as exc:
+            # A subprocess run would have turned this into a returncode, so do
+            # the same rather than letting it escape into the Dagster op and
+            # skip the on_complete indexing hook.
+            logger.exception("[local batch] %s raised in-process", jobName)
+            record["returncode"] = 1
+            record["stderr"] = traceback.format_exc()
+            record["exception"] = exc
+        finally:
+            sys.argv = saved_argv
 
 
 class LocalUploadResponse:

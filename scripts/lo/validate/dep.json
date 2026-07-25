@@ -1,0 +1,63 @@
+{
+  "dependency": [
+    {
+      "type": "spin",
+      "files": [
+        "imap_2025_312_2025_313_02.spin",
+        "imap_2025_313_2025_314_02.spin",
+        "imap_2025_314_2025_315_02.spin"
+      ]
+    },
+    {
+      "type": "spice",
+      "files": [
+        "naif0012.tls",
+        "imap_130.tf",
+        "imap_science_120.tf",
+        "imap_sclk_0174.tsc",
+        "de440.bsp",
+        "imap_recon_20250925_20260520_v01.bsp",
+        "imap_2025_267_2025_358_002.ah.bc",
+        "imap_dps_2025_311_2025_313_001.ah.bc",
+        "imap_dps_2025_312_2025_314_001.ah.bc",
+        "imap_dps_2025_270_2025_358_002.ah.bc"
+      ]
+    },
+    {
+      "type": "science",
+      "files": [
+        "imap_lo_l1b_goodtimes_20251109-repoint00043_v001.0001.cdf"
+      ]
+    },
+    {
+      "type": "science",
+      "files": [
+        "imap_lo_l1b_bgrates_20251109-repoint00043_v001.0001.cdf"
+      ]
+    },
+    {
+      "type": "science",
+      "files": [
+        "imap_lo_l1b_histrates_20251109-repoint00043_v001.0003.cdf"
+      ]
+    }
+  ],
+  "version": {
+    "quickmap": {
+      "major_version": 1,
+      "minor_version": 1
+    }
+  },
+  "_spice_notes": {
+    "naif0012.tls": "leap seconds (LSK)",
+    "imap_130.tf": "instrument/spacecraft frames (FK)",
+    "imap_science_120.tf": "science frames incl. DPS/HAE (FK)",
+    "imap_sclk_0174.tsc": "spacecraft clock (SCLK)",
+    "de440.bsp": "planetary ephemeris (SPK)",
+    "imap_recon_20250925_20260520_v01.bsp": "spacecraft ephemeris (SPK)",
+    "imap_2025_267_2025_358_002.ah.bc": "spacecraft attitude (CK)",
+    "imap_dps_2025_311_2025_313_001.ah.bc": "despun pointing, DOY 311-313 (CK)",
+    "imap_dps_2025_312_2025_314_001.ah.bc": "despun pointing, DOY 312-314 (CK)",
+    "imap_dps_2025_270_2025_358_002.ah.bc": "despun pointing, DOY 270-358 (CK)"
+  }
+}

@@ -8,11 +8,12 @@ import imap_data_access
 from dagster import (
     AssetExecutionContext,
     AssetKey,
-    DagsterEventType,
-    EventRecordsFilter,
+    AssetMaterialization,
 )
+from sqlalchemy import select
 
 from sds_data_manager.lambda_code.SDSCode.api_lambdas import spice_metakernel_api
+from sds_data_manager.lambda_code.SDSCode.database import database, models
 from sds_data_manager.orchestration import dagster_utilities
 
 # Date range validation constants
@@ -351,6 +352,105 @@ class DependencyNode(Node):
                 f"{DATE_RANGE_OPTIONS} and be positive."
             )
 
+    def _repoint_windows(self, context) -> dict[int, tuple]:
+        """Map repoint number -> (start, end) from the registered partition keys.
+
+        The keys are the authoritative source for these windows because they are
+        what the rest of the orchestration compares against. Deriving the windows
+        from pointing_table instead would risk a subtle divergence, since those
+        timestamps do not render the same way the keys were built.
+        """
+        windows = {}
+        for key in context.instance.get_dynamic_partitions("repoint_partitions"):
+            prefix = key.split("_")[0]
+            if prefix.startswith("repoint"):
+                start, end = dagster_utilities.parse_dates_from_partition_key(key)
+                if start and end:
+                    windows[int(prefix[7:])] = (start, end)
+        return windows
+
+    def _science_file_groups(self, context) -> list[dict]:
+        """Return this node's science files, grouped into one entry per window.
+
+        LOCAL DEVIATION FROM THE DEPLOYED PIPELINE. Upstream this information
+        comes from Dagster's asset-materialization event log, which is correct on
+        AWS where that history accumulates as each level runs, but is empty on a
+        local instance restored from a database dump. Reading science_files
+        instead is the same thing the ancillary and repoint dependency paths
+        already do (imap_job.get_ancillary_files_inputs).
+
+        Each entry is {"window": (start, end), "repoint": int | None,
+        "files": [...], "version": (major, minor), "start_date": str}, holding
+        only the newest version present - the same thing a materialization record
+        would have represented.
+        """
+        repoint_windows = self._repoint_windows(context)
+
+        with database.Session() as session:
+            rows = session.execute(
+                select(
+                    models.ScienceFiles.file_path,
+                    models.ScienceFiles.start_date,
+                    models.ScienceFiles.repointing,
+                    models.ScienceFiles.major_version,
+                    models.ScienceFiles.minor_version,
+                ).where(
+                    models.ScienceFiles.instrument == self.source,
+                    models.ScienceFiles.data_level == self.data_type,
+                    # The node's descriptor keeps its hyphens - only the derived
+                    # Dagster asset name strips them.
+                    models.ScienceFiles.descriptor == self.descriptor,
+                )
+            ).all()
+
+        grouped: dict = {}
+        for row in rows:
+            if row.repointing is not None:
+                if row.repointing not in repoint_windows:
+                    continue
+                window = repoint_windows[row.repointing]
+            else:
+                # A file with no repoint covers the day it starts on.
+                start = row.start_date.replace(tzinfo=datetime.timezone.utc)
+                window = (start, start + datetime.timedelta(days=1))
+
+            version = (row.major_version, row.minor_version)
+            file_name = row.file_path.rsplit("/", 1)[-1]
+            entry = grouped.get(window)
+            if entry is None or version > entry["version"]:
+                grouped[window] = {
+                    "window": window,
+                    "repoint": row.repointing,
+                    "files": [file_name],
+                    "version": version,
+                    "start_date": row.start_date.strftime("%Y-%m-%dT%H:%M:%S"),
+                }
+            elif version == entry["version"]:
+                entry["files"].append(file_name)
+
+        return list(grouped.values())
+
+    def _as_metadata(self, entry: dict) -> dict:
+        """Shape an entry like a real materialization record's metadata.
+
+        Callers read ``metadata["file_names"].value``, so these have to be
+        MetadataValue objects rather than plain Python. Round-tripping through
+        AssetMaterialization applies Dagster's own normalization instead of
+        guessing which MetadataValue subclass each field maps to, and keeps this
+        in step with dagster_utilities.get_materialization.
+        """
+        major, minor = entry["version"]
+        return AssetMaterialization(
+            asset_key=self.to_dagster_asset(),
+            metadata={
+                "file_names": entry["files"],
+                "input_type": "science",
+                "major_version": str(major),
+                "minor_version": str(minor),
+                "start_date": entry["start_date"],
+            },
+        ).metadata
+
     def get_all_files_in_time_range(
         self,
         context: AssetExecutionContext,
@@ -360,67 +460,29 @@ class DependencyNode(Node):
         """Return the metadata of all assets between start_dt and end_dt."""
         metadata = []
 
-        # Fetch a list of all partition keys that have EVER been materialized
-        materialized_partitions = context.instance.get_materialized_partitions(
-            self.to_dagster_asset()
-        )
+        for entry in self._science_file_groups(context):
+            window_start, window_end = entry["window"]
+            # Apply the overlap logic (StartA < EndB and EndA > StartB)
+            if window_start < end_dt and window_end > start_dt:
+                context.log.info(f"These files match: {entry['files']}")
+                metadata.append(self._as_metadata(entry))
 
-        if not materialized_partitions:
+        if not metadata:
             context.log.info(
                 f"""Not enought information to process. Missing
                     {self.to_dagster_name()}
                     in range {start_dt!s} to {end_dt!s}"""
             )
-            return []
-
-        # Loop through the partitions to determine if they span the time range
-        for partition in materialized_partitions:
-            partition_start, partition_end = (
-                dagster_utilities.parse_dates_from_partition_key(partition)
-            )
-
-            if not partition_start or not partition_end:
-                continue
-
-            # Apply the overlap logic (StartA < EndB and EndA > StartB)
-            if partition_start < end_dt and partition_end > start_dt:
-                context.log.info(f"This partition matches: {partition}")
-                # Fetch the actual materialization record for this overlapping partition
-                mat_event = context.instance.get_event_records(
-                    event_records_filter=EventRecordsFilter(
-                        event_type=DagsterEventType.ASSET_MATERIALIZATION,
-                        asset_key=self.to_dagster_asset(),
-                        asset_partitions=[partition],
-                    ),
-                    limit=1,  # The most recent event is returned first
-                )
-                if mat_event and mat_event[0].asset_materialization:
-                    metadata.append(mat_event[0].asset_materialization.metadata)
 
         return metadata
 
     def get_all_files_by_repoint_numbers(self, context, target_repoints: list[int]):
-        """Return all metadata of materialized assets for the list of repoints."""
+        """Return all metadata of this node's files for the list of repoints."""
         metadata = []
-        materialized_partitions = context.instance.get_materialized_partitions(
-            self.to_dagster_asset()
-        )
 
-        for partition in materialized_partitions:
-            parts = partition.split("_")
-            if "repoint" in parts[0]:
-                pointing_number = int(parts[0][7:])
-                if pointing_number in target_repoints:
-                    mat_event = context.instance.get_event_records(
-                        event_records_filter=EventRecordsFilter(
-                            event_type=DagsterEventType.ASSET_MATERIALIZATION,
-                            asset_key=self.to_dagster_asset(),
-                            asset_partitions=[partition],
-                        ),
-                        limit=1,  # The most recent event is returned first
-                    )
-                    if mat_event and mat_event[0].asset_materialization:
-                        metadata.append(mat_event[0].asset_materialization.metadata)
+        for entry in self._science_file_groups(context):
+            if entry["repoint"] is not None and entry["repoint"] in target_repoints:
+                metadata.append(self._as_metadata(entry))
 
         return metadata
 

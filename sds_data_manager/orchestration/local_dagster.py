@@ -11,6 +11,11 @@ Set IMAP_RUN_JOBS_LOCALLY=1 to actually execute submitted jobs through
 ``python -m imap_processing.cli``. Without it (the default) commands are logged
 and recorded but never run, which is the safe way to watch what the pipeline
 decides to do.
+
+Set IMAP_RUN_JOBS_IN_PROCESS=1 as well to call the CLI entrypoint directly
+instead of spawning a subprocess, which is what makes instrument code reachable
+from a debugger. See scripts/debug_materialize.py for the driver that pairs with
+it; under `dagster dev` alone a breakpoint still will not reach your terminal.
 """
 
 import logging
@@ -27,16 +32,24 @@ from sds_data_manager.orchestration import imap_job, reprocessing
 
 logger = logging.getLogger(__name__)
 
-RUN_JOBS_LOCALLY = os.getenv("IMAP_RUN_JOBS_LOCALLY", "").lower() in (
-    "1",
-    "true",
-    "yes",
-)
+def _flag(name: str) -> bool:
+    return os.getenv(name, "").lower() in ("1", "true", "yes")
+
+
+RUN_JOBS_LOCALLY = _flag("IMAP_RUN_JOBS_LOCALLY")
+
+# Debugging aid only - see LocalBatchClient.run_in_process for what dropping the
+# subprocess boundary costs. Under `dagster dev` this still will not give you an
+# interactive pdb, because the op already runs several processes away from your
+# terminal; it is here so an attached debugger (debugpy) or an in-process
+# `dagster.materialize()` driver can step into imap_processing.
+RUN_JOBS_IN_PROCESS = _flag("IMAP_RUN_JOBS_IN_PROCESS")
 
 # These are module-level globals in imap_job/reprocessing and are looked up at
 # call time, so rebinding them here takes effect no matter the import order.
 BATCH_CLIENT = LocalBatchClient(
     run_locally=RUN_JOBS_LOCALLY,
+    run_in_process=RUN_JOBS_IN_PROCESS,
     # Stands in for the S3 event -> indexer lambda hop that would otherwise put
     # a job's outputs into science_files, which is what the next level's sensors
     # poll. Without it the pipeline stops after one level.
