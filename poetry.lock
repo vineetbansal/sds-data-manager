@@ -1645,10 +1645,8 @@ description = "IMAP SDC Data Access"
 optional = false
 python-versions = "*"
 groups = ["main", "layer-idex-processing", "layer-processing"]
-files = [
-    {file = "imap_data_access-0.42.0-py3-none-any.whl", hash = "sha256:5eb6081dd9e6bcac2be60d5bb288a66d8d52922124d52e6d1ac7020beff2bc4b"},
-    {file = "imap_data_access-0.42.0.tar.gz", hash = "sha256:64dbd378dbe57e35eee157b513ee4929b279056983c19bd1481eeb90dac07fbf"},
-]
+files = []
+develop = true
 
 [package.dependencies]
 requests = ">=2.29"
@@ -1657,17 +1655,19 @@ requests = ">=2.29"
 dev = ["imap_data_access[test]", "pre-commit", "ruff"]
 test = ["pytest", "pytest-cov"]
 
+[package.source]
+type = "directory"
+url = "../imap-data-access"
+
 [[package]]
 name = "imap-processing"
-version = "1.0.35"
+version = "0.0.0"
 description = "IMAP Science Operations Center Processing"
 optional = false
-python-versions = "<3.13,>=3.10"
+python-versions = ">=3.10,<3.13"
 groups = ["layer-idex-processing", "layer-processing"]
-files = [
-    {file = "imap_processing-1.0.35-py3-none-any.whl", hash = "sha256:21f344b2d2783764be8de5575e7097917912973d1a1a4e5714a05c3e9035a45f"},
-    {file = "imap_processing-1.0.35.tar.gz", hash = "sha256:1e4605da3d3ac453a7d667e3f94cfe5355935b6a81541873e5914a9f3ee1455c"},
-]
+files = []
+develop = true
 
 [package.dependencies]
 astropy-healpix = ">=1.0"
@@ -1686,6 +1686,10 @@ doc = ["numpydoc (>=1.5.0,<2)", "pydata-sphinx-theme", "sphinx", "sphinxcontrib-
 map-visualization = ["healpy (>=1.18.0,<2)"]
 test = ["netcdf4 (>=1.7.2,<2)", "openpyxl (>=3.0.7)", "pytest (>=6.2.5)", "pytest-cov (>=4.0.0,<5)", "pytest-xdist (>=3.2,<4)", "requests (>=2.32.3,<3)"]
 tools = ["openpyxl (>=3.0.7)", "pandas (>=2.0.0)"]
+
+[package.source]
+type = "directory"
+url = "../imap_processing"
 
 [[package]]
 name = "iniconfig"
@@ -4831,4 +4835,4 @@ tool = ["alembic"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "6c155bcb1cddd26455f959f7bacbcfb439ff0c820bf762501b2c271561a24c77"
+content-hash = "3e8363329804f1e9f9717ae73cdf56d7b67f02690667260c8475e32614af8193"

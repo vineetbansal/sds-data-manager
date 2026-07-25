@@ -38,6 +38,10 @@ dependencies = [
 
 [tool.poetry]
 
+# Local editable checkout; the version constraint stays in [project].dependencies
+[tool.poetry.dependencies]
+imap-data-access = { path = "../imap-data-access", develop = true }
+
 [tool.poetry.requires-plugins]
 poetry-plugin-export = ">=1.8"
 
@@ -85,12 +89,14 @@ spiceypy = "^6.0.0"
 # 1.0.35 is the minimum that works with the command imap_job builds: it makes
 # the CLI's --version argument optional, which the orchestration no longer
 # passes (the version now travels inside the dependency JSON instead).
-imap-processing = "1.0.35"
+# Local editable checkout (must stay past the v1.0.35 tag).
+imap-processing = { path = "../imap_processing", develop = true }
 pandas = ">=3.0.3,<4.0.0"
 
 
 [tool.poetry.group.layer-idex-processing.dependencies]
-imap-processing = "^1.0.35"
+# Local editable checkout; must match the layer-processing entry exactly.
+imap-processing = { path = "../imap_processing", develop = true }
 spiceypy = "^6.0.0"
 sqlalchemy = "^2.0.49"
 psycopg2-binary = "^2.9.12"
