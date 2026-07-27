@@ -28,6 +28,7 @@ as a 90-degree ENA imager.
 """
 
 import argparse
+import os
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -35,8 +36,6 @@ from pathlib import Path
 import matplotlib
 import numpy as np
 import spiceypy
-
-import imap_data_access
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -62,6 +61,8 @@ INSTRUMENTS = {
     "ultra90": SpiceFrame.IMAP_ULTRA_90,
     "lo": SpiceFrame.IMAP_LO,
 }
+
+SPICE_DIR = Path(os.environ.get("IMAP_DATA_DIR") + "/imap/spice")
 
 # imap[_dps]_<year>_<doy>_<year>_<doy>_<version>.ah.bc
 CK_PATTERN = re.compile(r".*_(\d{4})_(\d{3})_(\d{4})_(\d{3})_(\d+)\.ah\.bc$")
@@ -334,12 +335,6 @@ def main():
         "--zoom-spins", type=int, default=3, help="Rotations in the lower panel"
     )
     parser.add_argument(
-        "--spice-dir",
-        type=Path,
-        default=Path(imap_data_access.config["DATA_DIR"]) / "imap" / "spice",
-        help="Kernel tree (default: <DATA_DIR>/imap/spice)",
-    )
-    parser.add_argument(
         "--output", type=Path, default=Path("sky_track.png"), help="Image to write"
     )
     args = parser.parse_args()
@@ -348,9 +343,9 @@ def main():
     end = start + timedelta(minutes=args.minutes)
     frame = SpiceFrame[args.frame]
 
-    cks = furnish_kernels(args.spice_dir, start, end)
+    cks = furnish_kernels(SPICE_DIR, start, end)
     print(f"Attitude from {', '.join(path.name for path in cks)}")
-    spin_data = load_spin_tables(args.spice_dir, start, end)
+    spin_data = load_spin_tables(SPICE_DIR, start, end)
 
     et = str_to_et(start.isoformat()) + np.arange(0, args.minutes * 60, args.step)
     met = et_to_met(et)

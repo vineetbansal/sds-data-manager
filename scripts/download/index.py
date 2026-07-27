@@ -90,6 +90,7 @@ def import_sds():
     """Import the sds-data-manager pieces we index through."""
     try:
         import spiceypy  # noqa: PLC0415
+
         from sds_data_manager.lambda_code.SDSCode import (  # noqa: PLC0415
             local_indexer,
             spice_utilities,
@@ -155,10 +156,11 @@ def stamp_alembic_head(engine):
     ConfigParser - and a URL containing a % (an encoded password, a search_path
     option) blows up on interpolation there.
     """
-    import sds_data_manager  # noqa: PLC0415
     from alembic.config import Config  # noqa: PLC0415
     from alembic.script import ScriptDirectory  # noqa: PLC0415
     from sqlalchemy import text  # noqa: PLC0415
+
+    import sds_data_manager  # noqa: PLC0415
 
     alembic_ini = Path(sds_data_manager.__file__).parents[1] / "alembic.ini"
     head = ScriptDirectory.from_config(Config(str(alembic_ini))).get_current_head()
@@ -263,6 +265,15 @@ def collect_files(path):
     paths = (
         [root] if root.is_file() else sorted(p for p in root.rglob("*") if p.is_file())
     )
+
+    # imap/dependency/ holds the dependency sidecars a processing job writes.
+    # S3 never routes that prefix to the indexer lambda (see synchronizer's
+    # ignore_keys), but the filenames parse as science files, so they would
+    # otherwise be inserted into science_files - and their .json extension is
+    # not in the extensions enum, which fails the whole run.
+    dependency_root = data_dir() / "imap" / "dependency"
+    paths = [p for p in paths if dependency_root not in p.parents]
+
     spice_root = data_dir() / "imap" / "spice"
     spice = [p for p in paths if spice_root in p.parents]
     other = [p for p in paths if spice_root not in p.parents]

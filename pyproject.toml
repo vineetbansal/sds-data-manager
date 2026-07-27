@@ -34,6 +34,7 @@ dependencies = [
     "imap-data-access>=0.42.0",
     "boto3>=1.26.78,<2",
     "SQLAlchemy<=3.0.0",
+    "matplotlib (>=3.11.1,<4.0.0)",
 ]
 
 [tool.poetry]
