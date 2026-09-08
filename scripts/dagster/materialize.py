@@ -124,18 +124,45 @@ def selection_for(asset_name: str) -> list[str]:
 
 
 if __name__ == "__main__":
-    ASSET = "lo_l1b_goodtimes"
-    DATE = "2026-05-16"
-    # ASSET = "lo_l2_l090enansnbshsfnspramhae6deg6mo"
-    # DATE = "2026-01-17"
+    # ASSET = "lo_l1b_goodtimes"
+    # DATE = "2026-05-16"
+    ASSETS = (
+        # "lo_l2_l075enansnbshsfnspramhae6deg6mo",
+        # "lo_l2_l075enasnbshsfnspramhae6deg6mo",
+        # "lo_l2_l075enasbshsfnspramhae6deg6mo",
+        # "lo_l2_l075enasbshhfnspramhae6deg6mo",
+        "lo_l2_l090enansnbshsfnspramhae6deg6mo",
+        # "lo_l2_l090enasnbshsfnspramhae6deg6mo",
+        # "lo_l2_l090enasbshsfnspramhae6deg6mo",
+        # "lo_l2_l090enasbshhfnspramhae6deg6mo",
+        # "lo_l2_l105enansnbshsfnspramhae6deg6mo",
+        # "lo_l2_l105enasnbshsfnspramhae6deg6mo",
+        # "lo_l2_l105enasbshsfnspramhae6deg6mo",
+        # "lo_l2_l105enasbshhfnspramhae6deg6mo",
+        # "lo_l2_l075enansnbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l075enasnbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l075enasbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l075enasbsMskhhfnspramhae6deg6mo",
+        # "lo_l2_l090enansnbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l090enasnbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l090enasbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l090enasbsMskhhfnspramhae6deg6mo",
+        # "lo_l2_l105enansnbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l105enasnbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l105enasbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_l105enasbsMskhhfnspramhae6deg6mo",
+        # "lo_l2_iloenansnbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_iloenasnbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_iloenasbsMskhsfnspramhae6deg6mo",
+        # "lo_l2_iloenasbsMskhhfnspramhae6deg6mo",
+    )
+
+    DATE = "2026-01-17"
 
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(levelname)-8s %(name)s: %(message)s",
     )
-
-    selection = selection_for(ASSET)
-    print(f"selecting: {selection}")
 
     # DagsterInstance.get() reads DAGSTER_HOME. This matters more than it looks:
     # these partitions are dynamic, so the key only exists because the
@@ -143,22 +170,26 @@ if __name__ == "__main__":
     # ephemeral instance (the default when this argument is omitted) would not
     # know the key and the run would fail before reaching any asset code.
     with DagsterInstance.get() as instance:
-        partition_key = partition_key_for_date(instance, ASSET, DATE)
-        print(f"partition: {partition_key}")
+        for asset in ASSETS:
+            selection = selection_for(asset)
+            print(f"selecting: {selection}")
 
-        result = materialize(
-            list(local_dagster.defs.assets),
-            # These assets declare upstreams via `deps=`, not `ins=`, so nothing
-            # tries to load upstream contents and selecting one node is valid.
-            selection=selection,
-            partition_key=partition_key,
-            instance=instance,
-        )
+            partition_key = partition_key_for_date(instance, asset, DATE)
+            print(f"partition: {partition_key}")
 
-    # Reported rather than assumed: these are multi_assets with optional outs,
-    # so a run can succeed while emitting only some of a job's products.
-    for event in result.get_asset_materialization_events():
-        print(f"materialized: {event.asset_key.to_user_string()}")
+            result = materialize(
+                list(local_dagster.defs.assets),
+                # These assets declare upstreams via `deps=`, not `ins=`, so nothing
+                # tries to load upstream contents and selecting one node is valid.
+                selection=selection,
+                partition_key=partition_key,
+                instance=instance,
+            )
+
+            # Reported rather than assumed: these are multi_assets with optional outs,
+            # so a run can succeed while emitting only some of a job's products.
+            for event in result.get_asset_materialization_events():
+                print(f"materialized: {event.asset_key.to_user_string()}")
 
     print(f"success: {result.success}")
     sys.exit(0 if result.success else 1)
