@@ -138,8 +138,9 @@ idex10_partitions = DynamicPartitionsDefinition(name="idex_10_day_partitions")
 @sensor(minimum_interval_seconds=86400)
 def add_idex_10_day_partitions(context: SensorEvaluationContext):
     """Alert Dagster when new IDEX 10-day partitions should be made."""
-    start_date = context.cursor or config.MISSION_START_TIME
-    start_dt = datetime.datetime.fromisoformat(start_date).replace(
+    # These partitions come from a static cadence CSV, so we always evaluate from
+    # mission start to avoid cursor drift shrinking the effective window.
+    start_dt = datetime.datetime.fromisoformat(config.MISSION_START_TIME).replace(
         tzinfo=datetime.timezone.utc
     )
     end_dt = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(
@@ -187,9 +188,7 @@ def add_idex_10_day_partitions(context: SensorEvaluationContext):
         partition_requests.append(idex10_partitions.build_add_request(partition_names))
         context.log.info(f"Registered new dynamic partitions: {partition_names}")
 
-    return SensorResult(
-        dynamic_partitions_requests=partition_requests, cursor=end_dt.isoformat()
-    )
+    return SensorResult(dynamic_partitions_requests=partition_requests)
 
 
 ##### THIS TELLS DAGSTER THAT SOME FILES ARE DIVIDED UP BY 30-day
@@ -199,8 +198,9 @@ idex30_partitions = DynamicPartitionsDefinition(name="idex_30_day_partitions")
 @sensor(minimum_interval_seconds=86400)
 def add_idex_30_day_partitions(context: SensorEvaluationContext):
     """Alert Dagster when new IDEX 30-day partitions should be made."""
-    start_date = context.cursor or config.MISSION_START_TIME
-    start_dt = datetime.datetime.fromisoformat(start_date).replace(
+    # These partitions come from a static cadence CSV, so we always evaluate from
+    # mission start to avoid cursor drift shrinking the effective window.
+    start_dt = datetime.datetime.fromisoformat(config.MISSION_START_TIME).replace(
         tzinfo=datetime.timezone.utc
     )
     end_dt = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(
@@ -252,20 +252,16 @@ def add_idex_30_day_partitions(context: SensorEvaluationContext):
         partition_requests.append(idex30_partitions.build_add_request(partition_names))
         context.log.info(f"Registered new dynamic partitions: {partition_names}")
 
-    return SensorResult(
-        dynamic_partitions_requests=partition_requests, cursor=end_dt.isoformat()
-    )
+    return SensorResult(dynamic_partitions_requests=partition_requests)
 
 
 # Run daily (24 hours = 86400 seconds)
-# TODO: update to run daily or weekly or at specified time
-# based on progressive discussion in the future.
 @sensor(minimum_interval_seconds=86400)
 def add_cadence_map_partitions(context: SensorEvaluationContext):
     """Create missing cadence partitions daily.
 
     This sensor checks for new cadence partitions that need to be created
-    and adds them to Dagster.
+    and creates them in Dagster.
     """
     added_any = False
 
@@ -274,21 +270,18 @@ def add_cadence_map_partitions(context: SensorEvaluationContext):
         existing_partitions = set(
             context.instance.get_dynamic_partitions(partition_def.name)
         )
-        # TODO: Set include_open=True once progressive maps are needed.
-        #   Doing so will require creating a sensor that runs on the same cadence
-        #   as map updates, and that sensor will need to call
-        #   get_progressive_map_partition_names() to fetch the currently active maps.
-        progressive_partition_names = get_map_partition_names(cadence_str)
+        # Set include_open=True for progressive maps.
+        progressive_partition_names = get_map_partition_names(
+            cadence_str, include_open=True
+        )
 
         context.log.info(f"Existing cadence partitions: {existing_partitions}")
-        context.log.info(f"All partitions: {progressive_partition_names}")
+        context.log.info(f"Partitions to create: {progressive_partition_names}")
 
-        prefix = f"cadence-{cadence_str}_"
         missing_partitions = [
             partition_name
             for partition_name in progressive_partition_names
-            if partition_name.startswith(prefix)
-            and partition_name not in existing_partitions
+            if partition_name not in existing_partitions
         ]
         if not missing_partitions:
             continue
@@ -299,15 +292,13 @@ def add_cadence_map_partitions(context: SensorEvaluationContext):
             partition_keys=missing_partitions,
         )
         context.log.info(
-            f"Added new {cadence_str} cadence partitions: {missing_partitions}"
+            f"Created new {cadence_str} cadence partitions: {missing_partitions}"
         )
         added_any = True
 
     if not added_any:
         return SkipReason("No new cadence partitions to create")
 
-    # TODO: This sensor only manages partitions. Use auto-materialize
-    # or manual triggers to run jobs on these partitions.
     return SensorResult()
 
 

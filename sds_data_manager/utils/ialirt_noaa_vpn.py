@@ -51,6 +51,10 @@ def build_noaa_vpn_tgw(
         ialirt_stack, "/ialirt/noaa-vpn/denv-ip"
     )
 
+    ialirt_eip_ip = ssm.StringParameter.value_for_string_parameter(
+        ialirt_stack, "/ialirt/noaa-vpn/eip-ip"
+    )
+
     # Create a Transit Gateway (TGW) to terminate the IPSec tunnel from NOAA.
     ialirt_transit_gateway = ec2.CfnTransitGateway(
         ialirt_stack,
@@ -100,16 +104,6 @@ def build_noaa_vpn_tgw(
     ec2.CfnTransitGatewayRouteTableAssociation(
         ialirt_stack,
         "IalirtTgwRouteTableAssociationVpc",
-        transit_gateway_attachment_id=ialirt_vpc_attachment.attr_id,
-        transit_gateway_route_table_id=tgw_route_table_id,
-    )
-
-    # Add the VPC's address range to our route table, so any other
-    # attachment using this table (e.g. the NOAA VPN connections) can route
-    # traffic destined for the VPC here.
-    ec2.CfnTransitGatewayRouteTablePropagation(
-        ialirt_stack,
-        "IalirtTgwRouteTablePropagationVpc",
         transit_gateway_attachment_id=ialirt_vpc_attachment.attr_id,
         transit_gateway_route_table_id=tgw_route_table_id,
     )
@@ -171,15 +165,19 @@ def build_noaa_vpn_tgw(
     ec2.CfnTransitGatewayRoute(
         ialirt_stack,
         "IalirtTgwDefaultRouteToVpc",
-        destination_cidr_block="0.0.0.0/0",
+        destination_cidr_block=f"{ialirt_eip_ip}/32",
         transit_gateway_route_table_id=tgw_route_table_id,
         transit_gateway_attachment_id=ialirt_vpc_attachment.attr_id,
     )
 
-    # If it's a private address (10.x, 172.16-31.x, 192.168.x),
-    # go back through the TGW instead of the public internet.
+    # If it's a private address (10.x, 172.16-31.x, 192.168.x) or the VPN
+    # tunnel's own link-local inside address (169.254.x), go back through
+    # the TGW instead of the public internet. The link-local range is
+    # needed because NAT Gateway restores the tunnel's own link-local
+    # inside IP as the destination when un-NATting return traffic,
+    # regardless of what prefix is advertised to AWS via BGP.
     def _add_return_routes(subnet_group: str, subnets: list) -> None:
-        for cidr in ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"):
+        for cidr in ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "169.254.0.0/16"):
             cidr_suffix = cidr.split("/")[0].replace(".", "")
             for i, subnet in enumerate(subnets):
                 route = ec2.CfnRoute(

@@ -9,7 +9,7 @@ import yaml
 from imap_data_access import VALID_INSTRUMENTS
 
 from ..lambda_code.SDSCode.api_lambdas import upload_api
-from .types import DependencyNode, Node, ProcessingJobNode
+from .types import DependencyNode, ProcessingJobNode
 
 # Logger setup
 logger = logging.getLogger(__name__)
@@ -23,9 +23,18 @@ class DependencyConfigReader:
     configurations, including loading from YAML files, validating nodes.
     """
 
-    def __init__(self):
-        """Initialize DependencyConfig by loading all dependencies."""
-        self._config = self._load_all_dependencies()
+    def __init__(self, yaml_dir: Path | None = None):
+        """Initialize DependencyConfig by loading all dependencies.
+
+        Parameters
+        ----------
+        yaml_dir : Path, optional
+            Directory containing the ``dependencies/`` subfolder of instrument
+            YAML files. Defaults to this module's directory. Pass a different
+            directory to load dependency configuration from another checkout,
+            e.g. to compare against an older revision.
+        """
+        self._config = self._load_all_dependencies(yaml_dir or Path(__file__).parent)
 
     @property
     def config(self) -> dict[tuple[str, str, str], list[DependencyNode]]:
@@ -98,6 +107,7 @@ class DependencyConfigReader:
 
     def _load_all_dependencies(
         self,
+        yaml_dir: Path,
     ) -> dict[tuple[str, str, str], list[DependencyNode]]:
         """Load all instrument YAML dependency files and unified dependency.
 
@@ -105,6 +115,12 @@ class DependencyConfigReader:
         (source, data_type, descriptor) representing a downstream product,
         and each value is a list of upstream :class:`~.utils.DependencyNode`
         objects.
+
+        Parameters
+        ----------
+        yaml_dir : Path
+            Directory containing the ``dependencies/`` subfolder of instrument
+            YAML files.
 
         Raises
         ------
@@ -121,14 +137,13 @@ class DependencyConfigReader:
         DependencyNode(source='codice', data_type='l0', descriptor='raw', ...)
         """
         dependencies = {}
-        yaml_dir = Path(__file__).parent
 
         for instrument in VALID_INSTRUMENTS:
             yaml_file = (
                 yaml_dir / "dependencies" / f"imap_{instrument}_dependencies.yaml"
             )
 
-            if instrument == "ialirt":
+            if instrument in ("ialirt", "l1const"):
                 continue
 
             if not yaml_file.exists():
@@ -273,13 +288,13 @@ class DependencyConfigReader:
                 flat_list.append(item)
         return flat_list
 
-    def get_node_for_output(self, node: Node) -> ProcessingJobNode:
-        """Return the Dependency node that produces the given output.
+    def get_node_for_output(self, dep_node: DependencyNode) -> ProcessingJobNode:
+        """Return the ProcessingJobNode that produces the given DependencyNode output.
 
         Parameters
         ----------
-        node : Node
-            The output node for which to find the producing job.
+        dep_node : DependencyNode
+            The output DependencyNode for which to find the producing job.
 
         Returns
         -------
@@ -294,16 +309,44 @@ class DependencyConfigReader:
         for job_node in self._config.values():
             for output in job_node.outputs:
                 if (
-                    output.source == node.source
-                    and output.data_type == node.data_type
-                    and output.descriptor == node.descriptor
+                    output.source == dep_node.source
+                    and output.data_type == dep_node.data_type
+                    and output.descriptor == dep_node.descriptor
                 ):
                     return job_node
 
-        raise ValueError(f"No job found that produces output: ({node})")
+        raise ValueError(f"No job found that produces output: ({dep_node})")
+
+    def get_nodes_for_input(self, dep_node: DependencyNode) -> list[ProcessingJobNode]:
+        """Return the ProcessingJobNodes that have the given DependencyNode input.
+
+        Parameters
+        ----------
+        dep_node : DependencyNode
+            The input DependencyNode for which to find the consuming job.
+
+        Returns
+        -------
+        list[ProcessingJobNode]
+            The job nodes whose inputs include the specified product.
+        """
+        # returns a list because an input can be consumed by multiple jobs.
+        # E.g. PSETS often times are the inputs to more than one job.
+        processing_nodes = []
+        for job_node in self._config.values():
+            for input in job_node.inputs:
+                if (
+                    input.source == dep_node.source
+                    and input.data_type == dep_node.data_type
+                    and input.descriptor == dep_node.descriptor
+                ):
+                    processing_nodes.append(job_node)
+        return processing_nodes
 
 
-def get_kickoff_jobs(instrument: str | None = None) -> list[ProcessingJobNode]:
+def get_kickoff_jobs(
+    instrument: str | None = None, reader: DependencyConfigReader | None = None
+) -> list[ProcessingJobNode]:
     """Return all the jobs that kick off each instrument pipeline.
 
     These are nodes that are downstream from a node with the data_level equal to
@@ -316,6 +359,9 @@ def get_kickoff_jobs(instrument: str | None = None) -> list[ProcessingJobNode]:
     ----------
     instrument : str, optional
         The instrument for which to get the kickoff job.
+    reader : DependencyConfigReader, optional
+        An instance of DependencyConfigReader to use for reading the dependency
+        configuration.
 
     Returns
     -------
@@ -325,8 +371,9 @@ def get_kickoff_jobs(instrument: str | None = None) -> list[ProcessingJobNode]:
         If instrument is provided, return only the kickoff job for that instrument.
     """
     kick_off_jobs = []
+    if reader is None:
+        reader = DependencyConfigReader()
 
-    reader = DependencyConfigReader()
     for potential_job in reader.config:
         for upstream_node in reader.inputs(potential_job):
             if upstream_node.data_type == "l0" and upstream_node.descriptor == "raw":
