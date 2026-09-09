@@ -8,7 +8,8 @@ import imap_data_access
 from dagster import AssetExecutionContext, AssetKey, AssetMaterialization
 from sqlalchemy import select
 
-from sds_data_manager.lambda_code.SDSCode import database, models, spice_utilities
+from sds_data_manager.lambda_code.SDSCode import spice_utilities
+from sds_data_manager.lambda_code.SDSCode.database import database, models
 from sds_data_manager.orchestration import dagster_utilities
 
 # Date range validation constants

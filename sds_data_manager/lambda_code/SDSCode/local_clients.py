@@ -12,6 +12,7 @@ import logging
 import os
 import subprocess
 import sys
+import time
 import traceback
 from pathlib import Path
 
@@ -34,6 +35,21 @@ class _Exceptions:
     """Namespace mimicking a boto3 client's ``.exceptions`` attribute."""
 
     ImageNotFoundException = ImageNotFoundException
+
+
+def _now_ms():
+    """Return the current time in epoch milliseconds, as Batch reports it."""
+    return int(time.time() * 1000)
+
+
+def _local_image_uri(jobDefinitionName):  # noqa: N803
+    """Build the synthetic ECR image URI for a job definition name.
+
+    "ProcessingJob-swapi" or "ProcessingJob-swapi-l3" -> a URI shaped like a
+    real one, because imap_job._get_container_image_digest parses it apart.
+    """
+    instrument = jobDefinitionName.split("-")[1]
+    return f"{LOCAL_REGISTRY}/{instrument}-repo:latest"
 
 
 class LocalECRClient:
@@ -132,6 +148,9 @@ class LocalBatchClient:
         self.on_complete = on_complete
         self.run_in_process = run_in_process
         self.submitted: list[dict] = []
+        # jobId -> submission record, so describe_jobs can answer for a job
+        # after submit_job has already run it to completion.
+        self._jobs: dict[str, dict] = {}
         self._counter = 0
 
     def describe_job_definitions(self, jobDefinitionName, status=None):  # noqa: N803
@@ -140,8 +159,6 @@ class LocalBatchClient:
         The image URI is built to look like a real ECR URI because
         imap_job._get_container_image_digest parses it apart to call ECR.
         """
-        # "ProcessingJob-swapi" or "ProcessingJob-swapi-l3" -> "swapi"
-        instrument = jobDefinitionName.split("-")[1]
         return {
             "jobDefinitions": [
                 {
@@ -149,7 +166,7 @@ class LocalBatchClient:
                     "revision": 1,
                     "status": "ACTIVE",
                     "containerProperties": {
-                        "image": f"{LOCAL_REGISTRY}/{instrument}-repo:latest"
+                        "image": _local_image_uri(jobDefinitionName)
                     },
                 }
             ]
@@ -178,13 +195,17 @@ class LocalBatchClient:
                 "allow_upload=True to publish to the real SDC",
                 jobName,
             )
+        job_id = f"local-{self._counter}"
         record = {
+            "jobId": job_id,
             "jobName": jobName,
             "jobQueue": jobQueue,
             "jobDefinition": jobDefinition,
             "command": command,
+            "createdAt": _now_ms(),
         }
         self.submitted.append(record)
+        self._jobs[job_id] = record
 
         argv = [sys.executable, "-m", "imap_processing.cli", *command]
         if not self.run_locally:
@@ -193,12 +214,16 @@ class LocalBatchClient:
                 jobName,
                 " ".join(argv),
             )
-            return {"jobId": f"local-{self._counter}", "jobName": jobName}
+            return {"jobId": job_id, "jobName": jobName}
 
-        if self.run_in_process:
-            self._execute_in_process(jobName, command, record)
-        else:
-            self._execute_subprocess(jobName, argv, record)
+        record["startedAt"] = _now_ms()
+        try:
+            if self.run_in_process:
+                self._execute_in_process(jobName, command, record)
+            else:
+                self._execute_subprocess(jobName, argv, record)
+        finally:
+            record["stoppedAt"] = _now_ms()
 
         if record["returncode"] != 0:
             logger.error(
@@ -219,7 +244,52 @@ class LocalBatchClient:
             except Exception:
                 logger.exception("[local batch] on_complete failed for %s", jobName)
 
-        return {"jobId": f"local-{self._counter}", "jobName": jobName}
+        return {"jobId": job_id, "jobName": jobName}
+
+    def describe_jobs(self, jobs):
+        """Report the status of jobs previously handed to submit_job.
+
+        submit_job is synchronous here, so by the time imap_job polls, the job
+        has already finished (or, with run_locally False, was only recorded).
+        The response therefore only ever carries a terminal status - the
+        wait_for_batch_job loop exits on its first pass.
+
+        Only the fields imap_job.wait_for_batch_job reads are populated. In
+        particular no ``logStreamName`` is set: LOGS_CLIENT is still the real
+        boto3 CloudWatch client, and there is no local log stream for it to
+        fetch. The job's output was already logged by submit_job.
+
+        Unknown job ids are omitted rather than faked, which mirrors boto3 and
+        leaves the caller's "Job not found" branch reachable.
+        """
+        described = []
+        for job_id in jobs:
+            record = self._jobs.get(job_id)
+            if record is None:
+                continue
+            if not self.run_locally:
+                # Nothing ran, so there is no failure to report; treat the
+                # dry run as a success and let find_outputs come up empty
+                # instead of failing the Dagster op.
+                status = "SUCCEEDED"
+            else:
+                status = "SUCCEEDED" if record.get("returncode") == 0 else "FAILED"
+            described.append(
+                {
+                    "jobId": job_id,
+                    "jobName": record["jobName"],
+                    "jobQueue": record["jobQueue"],
+                    "jobDefinition": record["jobDefinition"],
+                    "status": status,
+                    "container": {
+                        "image": _local_image_uri(record["jobDefinition"]),
+                    },
+                    "createdAt": record["createdAt"],
+                    "startedAt": record.get("startedAt", record["createdAt"]),
+                    "stoppedAt": record.get("stoppedAt", record["createdAt"]),
+                }
+            )
+        return {"jobs": described}
 
     def _execute_subprocess(self, jobName, argv, record):  # noqa: N803
         """Run the CLI in a child process and capture its output."""

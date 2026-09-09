@@ -15,12 +15,12 @@ fetching it again. `--dry-run` lists what would be fetched.
 | `oneoff.py` | Specific products or named files | `/query?table=science` |
 
 ```sh
-python scripts/download/spice.py 20260501 --minimal
-python scripts/download/tables.py 20260501 --types repoint spin
-python scripts/download/science.py 20260501 20260601 --instrument lo --data-level l0
-python scripts/download/science.py 20260501 --product lo l1b histrates
-python scripts/download/ancillary.py 20260501 --instrument lo
-python scripts/download/oneoff.py 20260501 --product lo l1b histrates
+python scripts/download/spice.py 20251104 --minimal
+python scripts/download/tables.py 20251104 --types repoint spin
+python scripts/download/science.py 20251104 --instrument lo --data-level l0
+python scripts/download/science.py 20251104 --product lo l1b histrates
+python scripts/download/ancillary.py 20251104 --instrument lo
+python scripts/download/oneoff.py 20251104 --product lo l1b histrates
 ```
 
 Downloading only puts files on disk. To make them visible to the local database
@@ -28,9 +28,9 @@ Downloading only puts files on disk. To make them visible to the local database
 `scripts/index.py`, which needs the sds-data-manager environment:
 
 ```sh
-../sds-data-manager/.venv/bin/python scripts/index.py --dry-run
-../sds-data-manager/.venv/bin/python scripts/index.py
-../sds-data-manager/.venv/bin/python scripts/index.py --create-tables  # empty db
+../sds-data-manager/.venv/bin/python scripts/download/index.py --dry-run
+../sds-data-manager/.venv/bin/python scripts/download/index.py
+../sds-data-manager/.venv/bin/python scripts/download/index.py --create-tables  # empty db
 ```
 
 `--create-tables` builds any tables that are missing and stamps the alembic
