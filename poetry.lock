@@ -455,6 +455,7 @@ files = [
     {file = "certifi-2026.5.20-py3-none-any.whl", hash = "sha256:3c52e209ba0a4ad7aebe60436a4ab349c39e1e602e8c134221e546902ad25897"},
     {file = "certifi-2026.5.20.tar.gz", hash = "sha256:69dea482ab64caa7b9f6aba1c6bf48bb6a5448d1c0f1b17ab42ad8c763a5344d"},
 ]
+markers = {main = "extra == \"doc\" or extra == \"test\""}
 
 [[package]]
 name = "cffi"
@@ -705,6 +706,7 @@ files = [
     {file = "charset_normalizer-3.4.7-py3-none-any.whl", hash = "sha256:3dce51d0f5e7951f8bb4900c257dad282f49190fdbebecd4ba99bcc41fef404d"},
     {file = "charset_normalizer-3.4.7.tar.gz", hash = "sha256:ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5"},
 ]
+markers = {main = "extra == \"doc\" or extra == \"test\""}
 
 [[package]]
 name = "click"
@@ -1802,6 +1804,7 @@ files = [
     {file = "idna-3.18-py3-none-any.whl", hash = "sha256:7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2"},
     {file = "idna-3.18.tar.gz", hash = "sha256:ffb385a7e039654cef1ab9ef32c6fafe283c0c0467bba1d9029738ce4a14a848"},
 ]
+markers = {main = "extra == \"doc\" or extra == \"test\""}
 
 [package.extras]
 all = ["mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2)"]
@@ -1821,11 +1824,11 @@ files = [
 
 [[package]]
 name = "imap-data-access"
-version = "0.42.0"
+version = "1.0.0"
 description = "IMAP SDC Data Access"
 optional = false
 python-versions = "*"
-groups = ["main", "layer-idex-processing", "layer-processing"]
+groups = ["layer-idex-processing", "layer-processing"]
 files = []
 develop = true
 
@@ -1842,13 +1845,15 @@ url = "../imap-data-access"
 
 [[package]]
 name = "imap-processing"
-version = "0.0.0"
+version = "1.0.36"
 description = "IMAP Science Operations Center Processing"
 optional = false
-python-versions = ">=3.10,<3.13"
+python-versions = "<3.13,>=3.10"
 groups = ["layer-idex-processing", "layer-processing"]
-files = []
-develop = true
+files = [
+    {file = "imap_processing-1.0.36-py3-none-any.whl", hash = "sha256:17bbdeadc5543f86be0197cef756cee40bfb860da115e3ae3102878f793944cc"},
+    {file = "imap_processing-1.0.36.tar.gz", hash = "sha256:6f527204d058fbbc197e65959c3525289ef9418581de0d1f77e2dcba2eaff4a8"},
+]
 
 [package.dependencies]
 astropy-healpix = ">=1.0"
@@ -1867,10 +1872,6 @@ doc = ["numpydoc (>=1.5.0,<2)", "pydata-sphinx-theme", "sphinx", "sphinxcontrib-
 map-visualization = ["healpy (>=1.18.0,<2)"]
 test = ["netcdf4 (>=1.7.2,<2)", "openpyxl (>=3.0.7)", "pytest (>=6.2.5)", "pytest-cov (>=4.0.0,<5)", "pytest-xdist (>=3.2,<4)", "requests (>=2.32.3,<3)"]
 tools = ["openpyxl (>=3.0.7)", "pandas (>=2.0.0)"]
-
-[package.source]
-type = "directory"
-url = "../imap_processing"
 
 [[package]]
 name = "iniconfig"
@@ -3859,6 +3860,7 @@ files = [
     {file = "requests-2.34.2-py3-none-any.whl", hash = "sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0"},
     {file = "requests-2.34.2.tar.gz", hash = "sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed"},
 ]
+markers = {main = "extra == \"doc\" or extra == \"test\""}
 
 [package.dependencies]
 certifi = ">=2023.5.7"
@@ -5329,4 +5331,4 @@ tool = ["alembic"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "914150dcca894102cfe6ce3d8e86d0ca0e5c57dd4cbff66f1472741255a031b8"
+content-hash = "b53a11fae625dfe407a570e16d196355d97d95b82659934e8fea727391cd8e75"

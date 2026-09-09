@@ -31,7 +31,7 @@ python = ">=3.11,<3.13"
 # the correct version and hash are used:
 #   poetry export -f requirements.txt -o lambda_layer/database/requirements.txt --with layer-database
 dependencies = [
-    "imap-data-access>=0.42.0",
+    "imap-data-access>=1.1.0",
     "boto3>=1.26.78,<2",
     "SQLAlchemy<=3.0.0",
     "matplotlib (>=3.11.1,<4.0.0)",
@@ -87,17 +87,12 @@ requests = "^2.28.2"
 spiceypy = "^6.0.0"
 
 [tool.poetry.group.layer-processing.dependencies]
-# 1.0.35 is the minimum that works with the command imap_job builds: it makes
-# the CLI's --version argument optional, which the orchestration no longer
-# passes (the version now travels inside the dependency JSON instead).
-# Local editable checkout (must stay past the v1.0.35 tag).
-imap-processing = { path = "../imap_processing", develop = true }
+imap-processing = "1.0.36"
 pandas = ">=3.0.3,<4.0.0"
 
 
 [tool.poetry.group.layer-idex-processing.dependencies]
-# Local editable checkout; must match the layer-processing entry exactly.
-imap-processing = { path = "../imap_processing", develop = true }
+imap-processing = "^1.0.36"
 spiceypy = "^6.0.0"
 sqlalchemy = "^2.0.49"
 psycopg2-binary = "^2.9.12"

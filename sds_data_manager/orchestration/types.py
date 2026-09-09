@@ -5,15 +5,10 @@ from dataclasses import asdict, dataclass, field
 from typing import Any, ClassVar
 
 import imap_data_access
-from dagster import (
-    AssetExecutionContext,
-    AssetKey,
-    AssetMaterialization,
-)
+from dagster import AssetExecutionContext, AssetKey, AssetMaterialization
 from sqlalchemy import select
 
-from sds_data_manager.lambda_code.SDSCode.api_lambdas import spice_metakernel_api
-from sds_data_manager.lambda_code.SDSCode.database import database, models
+from sds_data_manager.lambda_code.SDSCode import database, models, spice_utilities
 from sds_data_manager.orchestration import dagster_utilities
 
 # Date range validation constants
@@ -44,7 +39,7 @@ class DataSource:
             "spin",
             "repoint",
             "spice",
-            *spice_metakernel_api.KernelCollection().file_types,
+            *spice_utilities.KernelCollection().file_types,
             *imap_data_access.VALID_INSTRUMENTS,
         ]
 
